@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const resources = [
   {
@@ -19,25 +20,29 @@ const resources = [
       "Get all of your questions answered in our frequently asked questions section.",
     href: "/faqs",
     icon: SupportIcon,
+    type: "link",
   },
-  {
-    name: "Offers",
-    description:
-      "Learn about our offers and take the best deal that suits your needs.",
-    href: "#",
-    icon: CreditCardIcon,
-  },
+  // {
+  //   name: "Offers",
+  //   description:
+  //     "Learn about our offers and take the best deal that suits your needs.",
+  //   href: "#",
+  //   icon: CreditCardIcon,
+  //   type: "link",
+  // },
   {
     name: "Contact Us",
     description: "Contact us on our available social platforms.",
-    href: "#",
+    href: "/#contact-us",
     icon: PhoneIncomingIcon,
+    type: "hash",
   },
   {
     name: "About Us",
     description: "Learn more about who we are and what is our mission.",
-    href: "#",
+    href: "/#about-us",
     icon: UserGroupIcon,
+    type: "hash",
   },
 ];
 
@@ -72,14 +77,14 @@ export default function Header() {
             </Link>
 
             <Link
-              to="#"
+              to="/find-company"
               className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
             >
               Companies
             </Link>
 
             <Link
-              to="#"
+              to="/pricing"
               className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
             >
               Pricing
@@ -116,26 +121,48 @@ export default function Header() {
                     <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {resources.map((item) => (
-                            <Link
-                              key={item.name}
-                              to={item.href}
-                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                            >
-                              <item.icon
-                                className="flex-shrink-0 h-6 w-6 text-dark-blue"
-                                aria-hidden="true"
-                              />
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  {item.name}
-                                </p>
-                                <p className="mt-1 text-sm text-gray-500">
-                                  {item.description}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
+                          {resources.map((item) =>
+                            item.type === "link" ? (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                              >
+                                <item.icon
+                                  className="flex-shrink-0 h-6 w-6 text-dark-blue"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">
+                                    {item.name}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            ) : (
+                              <HashLink
+                                key={item.name}
+                                to={item.href}
+                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                                smooth
+                              >
+                                <item.icon
+                                  className="flex-shrink-0 h-6 w-6 text-dark-blue"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">
+                                    {item.name}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </HashLink>
+                            )
+                          )}
                         </div>
                       </div>
                     </Popover.Panel>
@@ -206,27 +233,38 @@ export default function Header() {
                 </Link>
 
                 <Link
-                  to="#"
+                  to="/find-company"
                   className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
                 >
                   Companies
                 </Link>
 
                 <Link
-                  to="#"
+                  to="/pricing"
                   className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
                 >
                   Pricing
                 </Link>
-                {resources.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {resources.map((item) =>
+                  item.type === "link" ? (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <HashLink
+                      key={item.name}
+                      to={item.href}
+                      className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
+                      smooth
+                    >
+                      {item.name}
+                    </HashLink>
+                  )
+                )}
               </div>
               <div>
                 <Link

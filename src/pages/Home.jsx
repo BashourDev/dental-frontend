@@ -253,28 +253,32 @@ const Home = () => {
   return (
     <div>
       <FindDoctorHero />
-      <AboutUsHero
-        title={"About Us"}
-        subtitle={"Learn More About Who We Are"}
-        description={
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas temporibus reiciendis voluptatem rem quam animi, repellat, quisquam ab ducimus dolorum similique quibusdam fugit nulla placeat eaque ipsum ullam dolores doloremque?"
-        }
-      />
-      <div className="max-w-7xl w-screen mx-auto  py-5 space-y-10 overflow-x-hidden">
+      <div id="about-us" className="py-20">
+        <AboutUsHero
+          title={"About Us"}
+          subtitle={"Learn More About Who We Are"}
+          description={
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas temporibus reiciendis voluptatem rem quam animi, repellat, quisquam ab ducimus dolorum similique quibusdam fugit nulla placeat eaque ipsum ullam dolores doloremque?"
+          }
+        />
+      </div>
+      <div className="max-w-7xl w-screen mx-auto pb-10 space-y-10 overflow-x-hidden">
         <SpecialCompaniesCarousel
           title={"Special Companies"}
           subtitle={"Check Out Our Selective Special Companies"}
           companies={specialCompanies}
         />
       </div>
-      <div className="max-w-7xl w-screen mx-auto  py-5 space-y-10 overflow-x-hidden">
+      <div className="max-w-7xl w-screen mx-auto  pt-10 pb-5 space-y-10 overflow-x-hidden">
         <SpecialCentersCarousel
-          title={"Special Centers"}
-          subtitle={"Check Out Our Selective Special Centers"}
+          title={"Special Doctors"}
+          subtitle={"Check Out Our Selective Special Doctors"}
           centers={specialCenters}
         />
       </div>
-      <Footer />
+      <div id="contact-us">
+        <Footer />
+      </div>
     </div>
   );
 };

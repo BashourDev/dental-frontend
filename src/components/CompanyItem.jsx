@@ -2,10 +2,10 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const DoctorItem = ({ id, name, country, city, address }) => {
+const CompanyItem = ({ id, name, country, city, address }) => {
   return (
     <Link
-      to={`/doctors/${id}`}
+      to={`/companies/${id}`}
       className="flex flex-col h-28 w-full bg-white p-2 shadow-sm"
     >
       <div className="flex">
@@ -24,4 +24,4 @@ const DoctorItem = ({ id, name, country, city, address }) => {
   );
 };
 
-export default DoctorItem;
+export default CompanyItem;

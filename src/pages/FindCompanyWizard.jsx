@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import StepWizard from "react-step-wizard";
+import CompanyInfoWizardStep from "../components/CompanyInfoWizardStep";
 import DotcorInfoWizardStep from "../components/DotcorInfoWizardStep";
 import LocationWizardStep from "../components/LocationWizardStep";
+import CompaniesListing from "./CompaniesListing";
 import DoctorsListing from "./DoctorsListing";
 
-const FindDoctorWizard = () => {
+const FindCompanyWizard = () => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [name, setName] = useState("");
@@ -17,17 +19,17 @@ const FindDoctorWizard = () => {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
-          stepToGoTo={"doctor-info"}
+          stepToGoTo={"company-info"}
         />
-        <DotcorInfoWizardStep
-          stepName="doctor-info"
+        <CompanyInfoWizardStep
+          stepName="company-info"
           name={name}
           setName={setName}
         />
-        <DoctorsListing stepName="doctors-listing" />
+        <CompaniesListing stepName="companies-listing" />
       </StepWizard>
     </>
   );
 };
 
-export default FindDoctorWizard;
+export default FindCompanyWizard;

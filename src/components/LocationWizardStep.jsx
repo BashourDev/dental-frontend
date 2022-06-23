@@ -99,7 +99,7 @@ const LocationWizardStep = (props) => {
               />
               <div className="relative flex flex-col sm:flex-row sm:space-x-4">
                 <button
-                  onClick={() => props.goToNamedStep("doctor-info")}
+                  onClick={() => props.goToNamedStep(props.stepToGoTo)}
                   className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto"
                 >
                   Next

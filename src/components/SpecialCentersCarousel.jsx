@@ -178,7 +178,7 @@ const SpecialCentersCarousel = ({ title, subtitle, centers = [] }) => {
                 <h3 className="text-base font-medium text-gray-100">
                   <button
                     onClick={() =>
-                      !isDragging && navigate(`/companies/${center.id}`)
+                      !isDragging && navigate(`/doctors/${center.id}`)
                     }
                   >
                     <span

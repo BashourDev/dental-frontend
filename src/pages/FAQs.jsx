@@ -15,8 +15,11 @@ const FAQs = () => {
   ]);
   return (
     <div className="max-w-2xl w-full space-y-5">
+      <h1 className="text-dark-blue text-xl md:text-2xl font-semibold px-1">
+        Frequently Asked Questions
+      </h1>
       {faqs.map((f, i) => (
-        <AppDisclosure title={f?.title} description={f?.description} />
+        <AppDisclosure key={i} title={f?.title} description={f?.description} />
       ))}
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutUsHero = ({ title, subtitle, description }) => {
   return (
-    <div className="max-w-7xl w-full p-5 my-14">
+    <div className="max-w-7xl w-full p-5">
       <div className="px-2 sm:px-6 pb-8 flex flex-col items-center space-y-4">
         <h3 className="text-light-green text-center w-full font-semibold text-base">
           {title}

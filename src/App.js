@@ -9,6 +9,9 @@ import FindDoctorWizard from "./pages/FindDoctorWizard";
 import DoctorInfo from "./pages/DoctorInfo";
 import Login from "./pages/Login";
 import FAQs from "./pages/FAQs";
+import Pricing from "./pages/Pricing";
+import FindCompanyWizard from "./pages/FindCompanyWizard";
+import CompanyInfo from "./pages/CompanyInfo";
 
 function App() {
   const blah = async () => {
@@ -35,6 +38,9 @@ function App() {
           <Route path="/requests" element={<Requests />} />
           <Route path="/find-doctor" element={<FindDoctorWizard />} />
           <Route path="/doctors/:id" element={<DoctorInfo />} />
+          <Route path="/find-company" element={<FindCompanyWizard />} />
+          <Route path="/companies/:id" element={<CompanyInfo />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/" element={<Home />} />
         </Routes>
