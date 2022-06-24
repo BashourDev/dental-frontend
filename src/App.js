@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import RegisterForm from "./forms/RegisterForm";
@@ -12,8 +12,22 @@ import FAQs from "./pages/FAQs";
 import Pricing from "./pages/Pricing";
 import FindCompanyWizard from "./pages/FindCompanyWizard";
 import CompanyInfo from "./pages/CompanyInfo";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import UserProfileForm from "./forms/UserProfileForm";
+import UserGalleryPreview from "./pages/UserGalleryPreview";
+import { getUser } from "./api/user";
+import UserContext from "./contexts/userContext";
+import UserPlanChange from "./pages/UserPlanChange";
 
 function App() {
+  const [user, setUser] = useState(() => {
+    if (!getUser()) {
+      return {};
+    }
+
+    return getUser();
+  });
+
   const blah = async () => {
     navigator.geolocation.getCurrentPosition(async function (position) {
       const res = await axios.get(
@@ -30,21 +44,28 @@ function App() {
 
   return (
     <div className="bg-light min-h-screen w-full">
-      <Header />
-      <div className="w-full flex justify-center py-5">
-        <Routes>
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/requests" element={<Requests />} />
-          <Route path="/find-doctor" element={<FindDoctorWizard />} />
-          <Route path="/doctors/:id" element={<DoctorInfo />} />
-          <Route path="/find-company" element={<FindCompanyWizard />} />
-          <Route path="/companies/:id" element={<CompanyInfo />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/faqs" element={<FAQs />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </div>
+      <UserContext.Provider value={{ user: user, setUser: setUser }}>
+        <Header />
+        <div className="w-full flex justify-center py-5">
+          <Routes>
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/requests" element={<Requests />} />
+            <Route path="/find-doctor" element={<FindDoctorWizard />} />
+            <Route path="/doctors/:id" element={<DoctorInfo />} />
+            <Route path="/find-company" element={<FindCompanyWizard />} />
+            <Route path="/companies/:id" element={<CompanyInfo />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/faqs" element={<FAQs />} />
+            <Route path="/user-dashboard" element={<DoctorDashboard />}>
+              <Route path="profile" element={<UserProfileForm />} />
+              <Route path="gallery" element={<UserGalleryPreview />} />
+              <Route path="plan" element={<UserPlanChange />} />
+            </Route>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+      </UserContext.Provider>
     </div>
   );
 }

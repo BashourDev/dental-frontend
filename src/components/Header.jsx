@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
   MenuIcon,
@@ -12,6 +12,8 @@ import {
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import UserContext from "../contexts/userContext";
+import ProfileMenu from "./ProfileMenu";
 
 const resources = [
   {
@@ -51,6 +53,8 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  const { user } = useContext(UserContext);
+
   return (
     <Popover className="bg-white z-50 sticky top-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -172,18 +176,24 @@ export default function Header() {
             </Popover>
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link
-              to="/login"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Sign in
-            </Link>
-            <Link
-              to="/register"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
-            >
-              Sign up
-            </Link>
+            {user?.id ? (
+              <ProfileMenu />
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  to="/register"
+                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -266,23 +276,27 @@ export default function Header() {
                   )
                 )}
               </div>
-              <div>
-                <Link
-                  to="/register"
-                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
-                >
-                  Sign up
-                </Link>
-                <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing customer?{" "}
+              {user?.id ? (
+                <ProfileMenu />
+              ) : (
+                <div>
                   <Link
-                    to="/login"
-                    className="text-dark-green hover:text-dark-green"
+                    to="/register"
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
                   >
-                    Sign in
+                    Sign up
                   </Link>
-                </p>
-              </div>
+                  <p className="mt-6 text-center text-base font-medium text-gray-500">
+                    Existing customer?{" "}
+                    <Link
+                      to="/login"
+                      className="text-dark-green hover:text-dark-green"
+                    >
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </Popover.Panel>

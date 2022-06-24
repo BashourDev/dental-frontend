@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineKey, AiOutlineMail } from "react-icons/ai";
 import AppForm from "../components/forms/AppForm";
 import AppFormInput from "../components/forms/AppFormInput";
@@ -6,9 +6,12 @@ import AppSubmitButton from "../components/forms/AppSubmitButton";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Doctors } from "../assets/doctors.svg";
+import { setUser } from "../api/user";
+import UserContext from "../contexts/userContext";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -19,7 +22,9 @@ const Login = () => {
     password: Yup.string().required("Password is a required field"),
   });
   const handleLogin = (values) => {
-    console.log(values);
+    setUser({ id: 1, ...values });
+    userContext.setUser({ id: 1, ...values });
+    navigate("/user-dashboard/profile");
   };
 
   return (
