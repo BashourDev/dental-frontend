@@ -35,8 +35,8 @@ const UserGalleryPreviewItem = ({
           <span className="text-dark-blue font-semibold">Description:</span>{" "}
           {description}
         </p>
-        <div class="divider"></div>
-        <div class="flex items-center w-full justify-evenly">
+        <div className="divider"></div>
+        <div className="flex items-center w-full justify-evenly">
           <AppButton Icon={MdEdit} className="w-28" onClick={() => onEdit(id)}>
             Edit
           </AppButton>
