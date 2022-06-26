@@ -1,6 +1,6 @@
 import { useState } from "react";
-import RequestDetailsModal from "../components/modals/RequestDetailsModal";
-import RequestItem from "../components/RequestItem";
+import RequestDetailsModal from "../../components/modals/RequestDetailsModal";
+import RequestItem from "../../components/RequestItem";
 
 const Requests = () => {
   const [requests, setRequests] = useState([

@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import RegisterForm from "./forms/RegisterForm";
 import Home from "./pages/Home";
-import Requests from "./pages/Requests";
+import Requests from "./pages/admin/Requests";
 import axios from "axios";
 import FindDoctorWizard from "./pages/FindDoctorWizard";
 import DoctorInfo from "./pages/DoctorInfo";
@@ -18,6 +18,8 @@ import UserGalleryPreview from "./pages/UserGalleryPreview";
 import { getUser } from "./api/user";
 import UserContext from "./contexts/userContext";
 import UserPlanChange from "./pages/UserPlanChange";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import Users from "./pages/admin/Users";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -50,7 +52,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/requests" element={<Requests />} />
+
             <Route path="/find-doctor" element={<FindDoctorWizard />} />
             <Route path="/doctors/:id" element={<DoctorInfo />} />
             <Route path="/find-company" element={<FindCompanyWizard />} />
@@ -61,6 +63,10 @@ function App() {
               <Route path="profile" element={<UserProfileForm />} />
               <Route path="gallery" element={<UserGalleryPreview />} />
               <Route path="plan" element={<UserPlanChange />} />
+            </Route>
+            <Route path="/admin" element={<AdminDashboard />}>
+              <Route path="users" element={<Users />} />
+              <Route path="requests" element={<Requests />} />
             </Route>
             <Route path="/" element={<Home />} />
           </Routes>
