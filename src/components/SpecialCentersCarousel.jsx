@@ -145,7 +145,7 @@ const SpecialCentersCarousel = ({ title, subtitle, centers = [] }) => {
   };
 
   return (
-    <div className="bg-dark-blue rounded-sm pt-6 pb-8">
+    <div className="bg-dark-blue rounded-sm pt-8 pb-12">
       <div className="px-2 sm:px-6 pb-8 flex flex-col items-center space-y-4">
         <h3 className="text-light-green text-center w-full font-semibold text-base">
           {title}
