@@ -33,6 +33,12 @@ const RegisterForm = () => {
     country: Yup.string().required("Country is a required field"),
     city: Yup.string().required("City is a required field"),
     address: Yup.string().required("Address is a required field"),
+
+    password: Yup.string().required("Enter the password"),
+    passwordConfirmation: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "password and password confirmation should match"
+    ),
   });
 
   return (
@@ -114,6 +120,23 @@ const RegisterForm = () => {
           />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <AppFormInput
+            id={"password"}
+            label={"Password "}
+            placeholder={"Enter The Password"}
+            isRequired={true}
+            type="password"
+          />
+
+          <AppFormInput
+            id={"passwordConfirmation"}
+            label={"Confirm Password "}
+            placeholder={"Repeat The Password"}
+            isRequired={true}
+            type="password"
+          />
+        </div>
         <AppFormTextArea
           id={"bio"}
           label={"Your Bio "}

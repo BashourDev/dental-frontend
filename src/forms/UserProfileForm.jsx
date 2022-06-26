@@ -6,6 +6,7 @@ import AppSubmitButton from "../components/forms/AppSubmitButton";
 import * as Yup from "yup";
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import ChangePassword from "../components/ChangePassword";
 
 const UserProfileForm = () => {
   const [selectedImage, setSelectedImage] = useState("");
@@ -21,72 +22,75 @@ const UserProfileForm = () => {
     address: Yup.string().required("Address is a required field"),
   });
   return (
-    <div className="bg-white rounded-md max-w-5xl space-y-8 py-5 px-8 shadow-md w-full">
-      <h2 className="text-dark-blue text-xl font-semibold">Your Info</h2>
-      <AppForm initialValues={doctor} validationSchema={validationSchema}>
-        <AppProfilePictureInput
-          selectedFile={selectedImage}
-          onChange={(e) => setSelectedImage(e.target.files[0])}
-          label={"choose image"}
-        />
+    <div className="w-full space-y-10">
+      <div className="bg-white rounded-md max-w-5xl space-y-8 py-5 px-8 shadow-md w-full">
+        <h2 className="text-dark-blue text-xl font-semibold">Your Info</h2>
+        <AppForm initialValues={doctor} validationSchema={validationSchema}>
+          <AppProfilePictureInput
+            selectedFile={selectedImage}
+            onChange={(e) => setSelectedImage(e.target.files[0])}
+            label={"choose image"}
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"name"}
-            label={"Your Name "}
-            placeholder={"Enter Your Name Here"}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"name"}
+              label={"Your Name "}
+              placeholder={"Enter Your Name Here"}
+              isRequired={true}
+            />
+
+            <AppFormInput
+              id={"phone"}
+              label={"Phone Number "}
+              placeholder={"+963 999 999 999"}
+              isRequired={true}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"email"}
+              label={"Email Address "}
+              placeholder={"me@example.com"}
+              isRequired={true}
+            />
+
+            <AppFormInput
+              id={"country"}
+              label={"Country "}
+              placeholder={"Syria"}
+              isRequired={true}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"city"}
+              label={"City "}
+              placeholder={"Damascus"}
+              isRequired={true}
+            />
+
+            <AppFormInput
+              id={"address"}
+              label={"Address "}
+              placeholder={"Al-Hamrah main street"}
+              isRequired={true}
+            />
+          </div>
+
+          <AppFormTextArea
+            id={"bio"}
+            label={"Your Bio "}
+            placeholder={"some thing about yourself"}
             isRequired={true}
           />
 
-          <AppFormInput
-            id={"phone"}
-            label={"Phone Number "}
-            placeholder={"+963 999 999 999"}
-            isRequired={true}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"email"}
-            label={"Email Address "}
-            placeholder={"me@example.com"}
-            isRequired={true}
-          />
-
-          <AppFormInput
-            id={"country"}
-            label={"Country "}
-            placeholder={"Syria"}
-            isRequired={true}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"city"}
-            label={"City "}
-            placeholder={"Damascus"}
-            isRequired={true}
-          />
-
-          <AppFormInput
-            id={"address"}
-            label={"Address "}
-            placeholder={"Al-Hamrah main street"}
-            isRequired={true}
-          />
-        </div>
-
-        <AppFormTextArea
-          id={"bio"}
-          label={"Your Bio "}
-          placeholder={"some thing about yourself"}
-          isRequired={true}
-        />
-
-        <AppSubmitButton>Save Changes</AppSubmitButton>
-      </AppForm>
+          <AppSubmitButton>Save Changes</AppSubmitButton>
+        </AppForm>
+      </div>
+      <ChangePassword />
     </div>
   );
 };
