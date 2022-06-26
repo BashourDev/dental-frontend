@@ -6,9 +6,89 @@ import AppFormTextArea from "../components/forms/AppFormTextArea";
 import AppFormRadioButton from "../components/forms/AppFormRadioButton";
 import { useState } from "react";
 import AppProfilePictureInput from "../components/AppProfilePictureInput";
+import AppPlanRadioButtons from "../components/controls/AppPlanRadioButtons";
+
+const plans = [
+  {
+    name: "Padawan",
+    price: 20,
+    properties: [
+      {
+        id: 1,
+        name: "something good 1",
+      },
+      {
+        id: 2,
+        name: "something good 2",
+      },
+      {
+        id: 3,
+        name: "something good 3",
+      },
+    ],
+  },
+  {
+    name: "Jedi Knight",
+    price: 50,
+    properties: [
+      {
+        id: 1,
+        name: "something good 1",
+      },
+      {
+        id: 2,
+        name: "something good 2",
+      },
+      {
+        id: 3,
+        name: "something good 3",
+      },
+      {
+        id: 4,
+        name: "something good 4",
+      },
+    ],
+  },
+  {
+    name: "Jedi Master",
+    price: 80,
+    properties: [
+      {
+        id: 1,
+        name: "something good 1",
+      },
+      {
+        id: 2,
+        name: "something good 2",
+      },
+      {
+        id: 3,
+        name: "something good 3",
+      },
+      {
+        id: 4,
+        name: "something good 4",
+      },
+      {
+        id: 5,
+        name: "something good 5",
+      },
+      {
+        id: 6,
+        name: "something good 6",
+      },
+      {
+        id: 7,
+        name: "something good 7",
+      },
+    ],
+  },
+];
 
 const RegisterForm = () => {
   const [selectedImage, setSelectedImage] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState(plans[0]);
+
   const [types, setTypes] = useState([
     { id: 1, name: "Doctor" },
     { id: 2, name: "Company" },
@@ -42,7 +122,7 @@ const RegisterForm = () => {
   });
 
   return (
-    <div className="bg-white rounded-md max-w-xl lg:max-w-2xl xl:max-w-3xl space-y-8 py-5 px-8 shadow-lg w-full mx-3">
+    <div className="bg-white rounded-md max-w-4xl  space-y-8 py-5 px-8 shadow-lg w-full mx-3">
       <h2 className="text-dark-blue text-xl font-semibold">Enter Your Info</h2>
       <AppForm
         initialValues={initialValues}
@@ -142,6 +222,13 @@ const RegisterForm = () => {
           label={"Your Bio "}
           placeholder={"some thing about yourself"}
           isRequired={true}
+        />
+
+        <AppPlanRadioButtons
+          selected={selectedPlan}
+          setSelected={setSelectedPlan}
+          plans={plans}
+          isRegister={true}
         />
 
         <AppSubmitButton>Submit</AppSubmitButton>

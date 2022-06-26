@@ -2,7 +2,7 @@ import React from "react";
 
 const DoctorGalleryItem = ({ before, after, description }) => {
   return (
-    <div className="flex flex-col items-center max-w-[22rem] py-2 px-2 md:px-4 rounded border border-light-gray/50">
+    <div className="flex flex-col items-center max-w-[22rem] py-2 px-2 md:px-4 rounded-md border border-light-gray/50 bg-white shadow-sm">
       <div className="flex gap-x-2">
         <div className="text-dark">
           <h3>Before</h3>

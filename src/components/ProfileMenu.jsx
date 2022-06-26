@@ -10,13 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProfileMenu({
-  setCategoriesOpen,
-  setMyAccountOpen,
-  logout,
-  reminderCount,
-  setIsReminderOpen,
-}) {
+export default function ProfileMenu() {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const resources = [

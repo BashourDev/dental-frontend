@@ -42,7 +42,7 @@ const UserGalleryPreviewItem = ({
           </AppButton>
           <AppButton
             Icon={MdDelete}
-            className="w-28 bg-danger hover:bg-danger/90"
+            className="w-28 bg-danger hover:bg-danger hover:opacity-95"
             onClick={() => onRemove(id)}
           >
             Remove

@@ -1,109 +1,18 @@
-import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import AppButton from "../controls/AppButton";
 
-const plans = [
-  {
-    name: "Padawan",
-    price: 20,
-    properties: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-    ],
-  },
-  {
-    name: "Jedi Knight",
-    price: 50,
-    properties: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-      {
-        id: 4,
-        name: "something good 4",
-      },
-    ],
-  },
-  {
-    name: "Jedi Master",
-    price: 80,
-    properties: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-      {
-        id: 4,
-        name: "something good 4",
-      },
-      {
-        id: 5,
-        name: "something good 5",
-      },
-      {
-        id: 6,
-        name: "something good 6",
-      },
-      {
-        id: 7,
-        name: "something good 7",
-      },
-    ],
-  },
-  // {
-  //   name: "Startup",
-  //   price: "12GB",
-  //   cpus: "6 CPUs",
-  //   disk: "160 GB SSD disk",
-  // },
-  // {
-  //   name: "Business",
-  //   ram: "16GB",
-  //   cpus: "8 CPUs",
-  //   disk: "512 GB SSD disk",
-  // },
-  // {
-  //   name: "Enterprise",
-  //   ram: "32GB",
-  //   cpus: "12 CPUs",
-  //   disk: "1024 GB SSD disk",
-  // },
-];
-
-export default function AppPlanRadioButtons() {
-  const [selected, setSelected] = useState(plans[0]);
-
+export default function AppPlanRadioButtons({
+  selected,
+  setSelected,
+  plans,
+  isRegister,
+}) {
   return (
     <div className="w-full px-4 pt-5 pb-16 space-y-8 max-w-5xl">
       <h1 className="text-lg md:text-2xl font-bold text-dark-blue w-full text-center">
-        * Select a new plan and send a request to change it.
+        {isRegister
+          ? "* Select a plan."
+          : "* Select a new plan and send a request to change it."}
       </h1>
       <div className="flex flex-col mx-auto w-full">
         <RadioGroup value={selected} onChange={setSelected}>
@@ -122,7 +31,7 @@ export default function AppPlanRadioButtons() {
                   ${
                     checked ? "bg-sky-900 bg-opacity-75 text-white" : "bg-white"
                   }
-                    relative flex items-start max-w-[14rem] w-full cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                    relative flex items-start ring-2 ring-light-gray/40 max-w-[14rem] w-full cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
                 }
               >
                 {({ active, checked }) => (
@@ -180,9 +89,11 @@ export default function AppPlanRadioButtons() {
             ))}
           </div>
         </RadioGroup>
-        <AppButton className="my-8 w-2/3 md:w-1/3 self-center">
-          Send Request
-        </AppButton>
+        {isRegister ? null : (
+          <AppButton className="my-8 w-2/3 md:w-1/3 self-center">
+            Send Request
+          </AppButton>
+        )}
       </div>
     </div>
   );
