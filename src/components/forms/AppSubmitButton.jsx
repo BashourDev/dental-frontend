@@ -32,7 +32,7 @@ const AppSubmitButton = ({
       type={type}
       onClick={handleClick}
       disabled={isLoading}
-      className={`outline-none w-full rounded-md px-3 py-1 transition duration-100 h-10 bg-light-green text-white hover:bg-light-green/95 text-sm lg:text-base ${className}`}
+      className={`flex items-center justify-center outline-none w-full rounded-md px-3 py-1 transition duration-100 h-10 bg-light-green text-white hover:bg-light-green/95 text-sm lg:text-base ${className}`}
       {...otherProps}
     >
       {Icon && <Icon />}

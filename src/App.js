@@ -20,6 +20,8 @@ import UserContext from "./contexts/userContext";
 import UserPlanChange from "./pages/UserPlanChange";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Users from "./pages/admin/Users";
+import ManagePlans from "./pages/admin/ManagePlans";
+import AddEditPlan from "./pages/admin/AddEditPlan";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -67,6 +69,9 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />}>
               <Route path="users" element={<Users />} />
               <Route path="requests" element={<Requests />} />
+              <Route path="plans" element={<ManagePlans />} />
+              <Route path="plans/add" element={<AddEditPlan />} />
+              <Route path="plans/edit/:id" element={<AddEditPlan />} />
             </Route>
             <Route path="/" element={<Home />} />
           </Routes>
