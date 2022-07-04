@@ -22,6 +22,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import Users from "./pages/admin/Users";
 import ManagePlans from "./pages/admin/ManagePlans";
 import AddEditPlan from "./pages/admin/AddEditPlan";
+import EditPageInfo from "./pages/admin/EditPageInfo";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -72,6 +73,7 @@ function App() {
               <Route path="plans" element={<ManagePlans />} />
               <Route path="plans/add" element={<AddEditPlan />} />
               <Route path="plans/edit/:id" element={<AddEditPlan />} />
+              <Route path="edit-page" element={<EditPageInfo />} />
             </Route>
             <Route path="/" element={<Home />} />
           </Routes>

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaMoneyBill, FaUsers } from "react-icons/fa";
-import { MdNotifications } from "react-icons/md";
+import { MdList, MdNotifications, MdPageview } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
@@ -42,6 +42,18 @@ const AdminDashboard = () => {
             }
           >
             <FaMoneyBill className="text-xl" />
+          </NavLink>
+        </li>
+        <li className="w-full flex items-center justify-center">
+          <NavLink
+            to={"/admin/edit-page"}
+            className={({ isActive }) =>
+              `focus-within:bg-dark-blue focus-within:text-white w-full flex justify-center ${
+                isActive ? "bg-dark-blue text-white" : ""
+              }`
+            }
+          >
+            <MdList className="text-xl" />
           </NavLink>
         </li>
       </ul>
