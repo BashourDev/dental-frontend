@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { MdDelete, MdEdit } from "react-icons/md";
 import AppButton from "./controls/AppButton";
 
@@ -10,12 +11,14 @@ const UserGalleryPreviewItem = ({
   onEdit,
   onRemove,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="flex flex-col items-center bg-white max-w-[22rem] py-4 px-2 md:px-4 shadow-sm rounded border border-light-gray/30">
         <div className="flex gap-x-2">
           <div className="text-dark">
-            <h3>Before</h3>
+            <h3>{t("before")}</h3>
             <img
               className="rounded overflow-hidden max-h-[12rem] max-w-[10rem]"
               alt="before"
@@ -23,7 +26,7 @@ const UserGalleryPreviewItem = ({
             />
           </div>
           <div className="text-dark">
-            <h3>After</h3>
+            <h3>{t("after")}</h3>
             <img
               className="rounded overflow-hidden max-h-[12rem] max-w-[10rem]"
               alt="after"
@@ -32,20 +35,22 @@ const UserGalleryPreviewItem = ({
           </div>
         </div>
         <p className="text-medium-gray pt-2">
-          <span className="text-dark-blue font-semibold">Description:</span>{" "}
+          <span className="text-dark-blue font-semibold">
+            {t("description")}
+          </span>{" "}
           {description}
         </p>
         <div className="divider"></div>
         <div className="flex items-center w-full justify-evenly">
           <AppButton Icon={MdEdit} className="w-28" onClick={() => onEdit(id)}>
-            Edit
+            {t("edit")}
           </AppButton>
           <AppButton
             Icon={MdDelete}
             className="w-28 bg-danger hover:bg-danger hover:opacity-95"
             onClick={() => onRemove(id)}
           >
-            Remove
+            {t("delete")}
           </AppButton>
         </div>
       </div>

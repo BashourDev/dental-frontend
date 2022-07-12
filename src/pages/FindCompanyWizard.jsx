@@ -10,6 +10,7 @@ const FindCompanyWizard = () => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [name, setName] = useState("");
+  const [cords, setCords] = useState({});
   return (
     <>
       <StepWizard>
@@ -19,6 +20,7 @@ const FindCompanyWizard = () => {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
+          setCords={setCords}
           stepToGoTo={"company-info"}
         />
         <CompanyInfoWizardStep

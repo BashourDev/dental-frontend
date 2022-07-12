@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import {
   MdLocationOn,
@@ -10,18 +10,24 @@ import {
   MdSubscriptions,
 } from "react-icons/md";
 import { FaMoneyBill, FaShekelSign } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import api from "../api/api";
+import { useContext } from "react";
+import UserContext from "../contexts/userContext";
 
 const DoctorDashboard = () => {
-  const [doctor, setDoctor] = useState({
-    id: 1,
-    name: "Bashour Atrini",
-    phone: "+999 999 999 999",
-    email: "bashour@bashour.com",
-    bio: "",
-    country: "Syria",
-    city: "Homs",
-    address: "main street",
-  });
+  const { t } = useTranslation();
+  // const [doctor, setDoctor] = useState({});
+  const { user: doctor, setUser: setDoctor } = useContext(UserContext);
+
+  const getDoctor = async () => {
+    const res = await api.get(`/users/${doctor?.id}`);
+    setDoctor(res.data);
+  };
+
+  useEffect(() => {
+    getDoctor();
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row justify-center gap-5 w-full px-5 md:px-10 max-w-7xl">
@@ -85,10 +91,14 @@ const DoctorDashboard = () => {
             className="w-72 h-full"
           />
           <div className="px-2">
-            <h3 className="text-lg text-dark">{doctor?.name}</h3>
+            <h3 className="text-lg text-dark">
+              {t("ln") === "en" ? doctor?.en_name : doctor?.ar_name}
+            </h3>
             <h2 className="flex text-sm title-font text-gray-500 tracking-widest">
-              <MdLocationOn className="mt-0.5" /> {doctor?.country},{" "}
-              {doctor?.city}, {doctor?.address}
+              <MdLocationOn className="mt-0.5" />{" "}
+              {t("ln") === "en" ? doctor?.en_country : doctor?.ar_country},{" "}
+              {t("ln") === "en" ? doctor?.en_city : doctor?.ar_city},{" "}
+              {t("ln") === "en" ? doctor?.en_address : doctor?.ar_address}
             </h2>
           </div>
           <div className="flex flex-col px-2  text-medium-gray">
@@ -127,7 +137,7 @@ const DoctorDashboard = () => {
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 />
               </svg>
-              Profile
+              {t("profile")}
             </NavLink>
           </li>
           <li>
@@ -140,7 +150,7 @@ const DoctorDashboard = () => {
               }
             >
               <MdOutlineCollections className="text-lg" />
-              Gallery
+              {t("gallery")}
             </NavLink>
           </li>
           <li>
@@ -153,7 +163,7 @@ const DoctorDashboard = () => {
               }
             >
               <FaMoneyBill className="text-lg" />
-              Plan
+              {t("plan")}
             </NavLink>
           </li>
         </ul>

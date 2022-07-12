@@ -5,6 +5,7 @@ import AppFormTextArea from "../forms/AppFormTextArea";
 import * as Yup from "yup";
 import AppSubmitButton from "../forms/AppSubmitButton";
 import AppModal from "./AppModal";
+import { useTranslation } from "react-i18next";
 
 const ProjectEditModal = ({
   id,
@@ -16,19 +17,20 @@ const ProjectEditModal = ({
   selectedAfter,
   setSelectedAfter,
 }) => {
+  const { t } = useTranslation();
   return (
-    <AppModal isOpen={isOpen} onClose={onClose} title={"Create Project"}>
+    <AppModal isOpen={isOpen} onClose={onClose} title={t("edit_project")}>
       <div className="space-y-3">
         <div className="flex gap-x-2 justify-evenly py-2">
           <div className="text-dark">
-            <h3>Before</h3>
+            <h3>{t("before")}</h3>
             <AppPictureInput
               selectedFile={selectedBefore}
               onChange={(e) => setSelectedBefore(e.target.files[0])}
             />
           </div>
           <div className="text-dark">
-            <h3>After</h3>
+            <h3>{t("after")}</h3>
             <AppPictureInput
               selectedFile={selectedAfter}
               onChange={(e) => setSelectedAfter(e.target.files[0])}
@@ -38,15 +40,20 @@ const ProjectEditModal = ({
         <AppForm
           initialValues={{ description: description }}
           validationSchema={Yup.object().shape({
-            description: Yup.string().required().label("Description"),
+            // description: Yup.string().required().label("Description"),
           })}
         >
           <AppFormTextArea
-            id={"description"}
-            label={"Description"}
-            placeholder={"Enter the description here"}
+            id={"en_description"}
+            label={t("english_description")}
+            placeholder={t("english_description")}
           />
-          <AppSubmitButton>Save Changes</AppSubmitButton>
+          <AppFormTextArea
+            id={"ar_description"}
+            label={t("arabic_description")}
+            placeholder={t("arabic_description")}
+          />
+          <AppSubmitButton>{t("save_changes")}</AppSubmitButton>
         </AppForm>
       </div>
     </AppModal>

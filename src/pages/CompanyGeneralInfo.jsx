@@ -1,24 +1,26 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { MdLocationOn, MdMail, MdPhone } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import api from "../api/api";
 import Loading from "../components/Loading";
 
 const CompanyGeneralInfo = () => {
-  const [company, setCompany] = useState({
-    id: 1,
-    name: "Bashour Atrini",
-    country: "Syria",
-    city: "Homs",
-    address: "main street",
-    phone: "+999 999 999 999",
-    email: "something@example.com",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, sint quod quo non magnam nisi, dolor commodi dicta illum earum, animi beatae culpa ea eos qui nulla natus. Illo, perferendis?",
-    first_media_only: {
-      name: "blah",
-      original_url:
-        "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-    },
-  });
+  const [company, setCompany] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
+  const { id } = useParams();
+
+  const getCompany = async () => {
+    const res = await api.get(`/users/${id}`);
+    setCompany(res.data);
+  };
+
+  useEffect(() => {
+    getCompany();
+  }, []);
+
   return (
     <>
       <section className="text-gray-700 body-font overflow-hidden bg-white max-w-6xl">
@@ -44,14 +46,18 @@ const CompanyGeneralInfo = () => {
             </div>
             <div className="md:w-1/2 w-full md:pl-10 md:py-6 mt-6 md:mt-0 space-y-3">
               <h2 className="flex text-sm title-font text-gray-500 tracking-widest">
-                <MdLocationOn className="mt-0.5" /> {company?.country},{" "}
-                {company?.city}, {company?.address}
+                <MdLocationOn className="mt-0.5" />{" "}
+                {t("ln") === "en" ? company?.en_country : company?.ar_country},{" "}
+                {t("ln") === "en" ? company?.en_city : company?.ar_city},{" "}
+                {t("ln") === "en" ? company?.en_address : company?.ar_address}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                {company?.name}
+                {t("ln") === "en" ? company?.en_name : company?.ar_name}
               </h1>
 
-              <p className="leading-relaxed">{company?.bio}</p>
+              <p className="leading-relaxed">
+                {t("ln") === "en" ? company?.en_bio : company?.ar_bio}
+              </p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5"></div>
             </div>
           </div>

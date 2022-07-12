@@ -1,10 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import DoctorGallery from "./DoctorGallery";
 import DoctorGeneralInfo from "./DoctorGeneralInfo";
 
 const DoctorInfo = () => {
+  const { t } = useTranslation();
   return (
     <Tabs
       className={"max-w-6xl w-full bg-white"}
@@ -13,8 +15,8 @@ const DoctorInfo = () => {
       }
     >
       <TabList>
-        <Tab>General Info</Tab>
-        <Tab>Gallery</Tab>
+        <Tab>{t("general_info")}</Tab>
+        <Tab>{t("gallery")}</Tab>
       </TabList>
 
       <TabPanel>

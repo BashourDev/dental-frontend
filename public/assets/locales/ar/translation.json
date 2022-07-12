@@ -1,0 +1,104 @@
+{
+  "ln": "ar",
+
+  "language": "اللغة",
+
+  "try_it_now": "جرب الآن",
+  "learn_more": "المزيد",
+  "doctors": "أطباء",
+  "companies": "شركات",
+  "pricing": "اشترك",
+  "more": "المزيد",
+  "sign_in": "تسجيل الدخول",
+  "sign_up": "اشتراك",
+  "existing_customer": "هل تملك حساب؟",
+  "faqs": "الأسئلة الأكثر شيوعاً",
+  "faqs_description": "احصل على إجابات لجميع أسئلتك في قسم الأسئلة الشائعة.",
+  "contact_us": "اتصل بنا",
+  "contact_us_description": "اتصل بنا على منصات التواصل الاجتماعي المتاحة.",
+  "about_us": "من نحن",
+  "about_us_description": "تعرف على المزيد حول من نحن وما هي مهمتنا.",
+  "account": "حسابي",
+  "dashboard": "لوحة التحكم",
+  "logout": "تسجيل الخروج",
+  "search": "بحث",
+  "please_enter_your_location_or": "الرجاء إدخال موقعك أو",
+  "let_us_select_it_For_you": "دعنا نختاره لك",
+  "next": "التالي",
+  "do_you_have_a_doctor_in_mind": "هل تريد البحث عن طبيب محدد؟",
+  "leave_it_blank_if_you_dont": "لا؟ اترك الحقل فارغ",
+  "do_you_have_a_company_in_mind": "هل تريد البحث عن شركة محددة؟",
+  "done": "تم",
+  "entity_name_placeholder": "أدخل الاسم",
+
+  "description": "تفاصيل:",
+  "before": "قبل",
+  "after": "بعد",
+
+  "general_info": "معلومات عامة",
+  "gallery": "المعرض",
+
+  "profile": "المعلومات الشخصية",
+  "plan": "الاشتراك",
+
+  "your_info": "المعلومات الشخصية",
+
+  "choose_image": "اختر صورة",
+  "email_label": "البريد الإلكتروني ",
+  "phone_label": "رقم الهاتف ",
+
+  "english_info": "المعلومات باللغة الانكليزية",
+  "arabic_info": "المعلومات باللغة العربية",
+  "name_label": "الاسم",
+  "name_placeholder": "ادخل اسمك هنا",
+  "country_label": "الدولة ",
+  "country_placeholder": "أدخل اسم الدولة هنا",
+  "city_label": "المدينة ",
+  "city_placeholder": "أدخل اسم المدينة هنا",
+  "address_label": "العنوان ",
+  "address_placeholder": "أدخل عنوانك هنا",
+  "bio_label": "اكتب شيئاً عن نفسك ",
+  "bio_placeholder": "اكتب شيئاً عن نفسك",
+  "save_changes": "حفظ التغييرات",
+
+  "change_password": "تغيير كلمة المرور",
+  "current_password": "كلمة المرور الحالية",
+  "new_password": "كلمة المرور الجديدة",
+  "confirm_new_password": "تأكيد كلمة المرور الجديدة",
+
+  "create_new_project": "إنشاء مشروع جديد",
+  "edit_project": "تعديل مشروع",
+  "edit": "تعديل",
+  "delete": "حذف",
+
+  "english_description": "الوصف باالغة الانكليزية",
+  "arabic_description": "الوصف باللغة العربية",
+  "create": "إنشاء",
+  "update": "تعديل",
+
+  "are_you_sure": "هل أنت متأكد؟",
+  "delete_project_message": "بمجرد الحذف ، لن تتمكن من استعادة هذا المشروع!",
+  "project_deleted_message": "تم حذف المشروع!",
+  "project_safe_message": "مشروعك في امان!",
+
+  "select_plan": "* اختر نوع الاشتراك",
+  "select_new_plan": "* حدد خطة جديدة وأرسل طلبًا لتغيير الخطة الحالية.",
+  "send_request": "إرسال طلب",
+  "select_plan_period": "حدد مدة الاشتراك",
+
+  "choose_account_type": "اختر نوع الحساب",
+  "doctor": "طبيب",
+  "company": "شركة",
+
+  "login": "تسجيل الدخول",
+  "password": "كلمة المرور",
+  "dont_have_an_account": "لا تملك حساب؟",
+  "register_instead": "قم بإنشاء حساب",
+
+  "dentist_plans": "أطباء",
+  "company_plans": "شركات",
+
+  "join_now": "اشترك الآن",
+
+  "months": "أشهر"
+}

@@ -14,39 +14,9 @@ import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import UserContext from "../contexts/userContext";
 import ProfileMenu from "./ProfileMenu";
-
-const resources = [
-  {
-    name: "FAQs",
-    description:
-      "Get all of your questions answered in our frequently asked questions section.",
-    href: "/faqs",
-    icon: SupportIcon,
-    type: "link",
-  },
-  // {
-  //   name: "Offers",
-  //   description:
-  //     "Learn about our offers and take the best deal that suits your needs.",
-  //   href: "#",
-  //   icon: CreditCardIcon,
-  //   type: "link",
-  // },
-  {
-    name: "Contact Us",
-    description: "Contact us on our available social platforms.",
-    href: "/#contact-us",
-    icon: PhoneIncomingIcon,
-    type: "hash",
-  },
-  {
-    name: "About Us",
-    description: "Learn more about who we are and what is our mission.",
-    href: "/#about-us",
-    icon: UserGroupIcon,
-    type: "hash",
-  },
-];
+import ChooseLanguage from "./ChooseLanguage";
+import { useTranslation } from "react-i18next";
+import logo from "../assets/logo.jpg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -54,6 +24,39 @@ function classNames(...classes) {
 
 export default function Header() {
   const { user } = useContext(UserContext);
+  const { t } = useTranslation();
+
+  const resources = [
+    {
+      name: t("faqs"),
+      description: t("faqs_description"),
+      href: "/faqs",
+      icon: SupportIcon,
+      type: "link",
+    },
+    // {
+    //   name: "Offers",
+    //   description:
+    //     "Learn about our offers and take the best deal that suits your needs.",
+    //   href: "#",
+    //   icon: CreditCardIcon,
+    //   type: "link",
+    // },
+    {
+      name: t("contact_us"),
+      description: t("contact_us_description"),
+      href: "/#contact-us",
+      icon: PhoneIncomingIcon,
+      type: "hash",
+    },
+    {
+      name: t("about_us"),
+      description: t("about_us_description"),
+      href: "/#about-us",
+      icon: UserGroupIcon,
+      type: "hash",
+    },
+  ];
 
   return (
     <Popover className="bg-white z-50 sticky top-0">
@@ -62,8 +65,9 @@ export default function Header() {
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link to="/" className="flex">
               <span className="sr-only">Workflow</span>
-              <h1 className="text-3xl font-semibold text-dark-blue">Den</h1>
-              <h1 className="text-3xl font-semibold text-dark-green">tist</h1>
+              {/* <h1 className="text-3xl font-semibold text-dark-blue">Den</h1>
+              <h1 className="text-3xl font-semibold text-dark-green">tist</h1> */}
+              <img src={logo} alt="logo" className="h-12" />
             </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
@@ -72,26 +76,26 @@ export default function Header() {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Popover.Group as="nav" className="hidden md:flex space-x-10">
+          <Popover.Group as="nav" className="hidden md:flex gap-x-10">
             <Link
               to="/find-doctor"
               className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
             >
-              Doctors
+              {t("doctors")}
             </Link>
 
             <Link
               to="/find-company"
               className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
             >
-              Companies
+              {t("companies")}
             </Link>
 
             <Link
               to="/pricing"
               className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
             >
-              Pricing
+              {t("pricing")}
             </Link>
 
             <Popover className="relative">
@@ -103,7 +107,7 @@ export default function Header() {
                       "group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-dark-blue/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-blue/80"
                     )}
                   >
-                    <span>More</span>
+                    <span>{t("more")}</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-dark-blue/90" : "text-dark-blue",
@@ -136,7 +140,7 @@ export default function Header() {
                                   className="flex-shrink-0 h-6 w-6 text-dark-blue"
                                   aria-hidden="true"
                                 />
-                                <div className="ml-4">
+                                <div className="mx-4">
                                   <p className="text-base font-medium text-gray-900">
                                     {item.name}
                                   </p>
@@ -156,7 +160,7 @@ export default function Header() {
                                   className="flex-shrink-0 h-6 w-6 text-dark-blue"
                                   aria-hidden="true"
                                 />
-                                <div className="ml-4">
+                                <div className="mx-4">
                                   <p className="text-base font-medium text-gray-900">
                                     {item.name}
                                   </p>
@@ -174,8 +178,9 @@ export default function Header() {
                 </>
               )}
             </Popover>
+            <ChooseLanguage />
           </Popover.Group>
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <div className="hidden md:flex items-center gap-x-4 justify-end md:flex-1 lg:w-0">
             {user?.id ? (
               <ProfileMenu />
             ) : (
@@ -184,13 +189,13 @@ export default function Header() {
                   to="/login"
                   className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  Sign in
+                  {t("sign_in")}
                 </Link>
                 <Link
                   to="/register"
-                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
+                  className="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
                 >
-                  Sign up
+                  {t("sign_up")}
                 </Link>
               </>
             )}
@@ -215,14 +220,15 @@ export default function Header() {
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <Link to="/" className="flex">
+                  <Link to="/" className="flex outline-none">
                     <span className="sr-only">Workflow</span>
-                    <h1 className="text-3xl font-semibold text-dark-blue">
+                    {/* <h1 className="text-3xl font-semibold text-dark-blue">
                       Den
                     </h1>
                     <h1 className="text-3xl font-semibold text-dark-green">
                       tist
-                    </h1>
+                    </h1> */}
+                    <img src={logo} alt="logo" className="h-12" />
                   </Link>
                 </div>
                 <div className="-mr-2">
@@ -239,21 +245,21 @@ export default function Header() {
                   to="/find-doctor"
                   className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
                 >
-                  Doctors
+                  {t("doctors")}
                 </Link>
 
                 <Link
                   to="/find-company"
                   className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
                 >
-                  Companies
+                  {t("companies")}
                 </Link>
 
                 <Link
                   to="/pricing"
                   className="text-base font-medium text-dark-blue hover:text-dark-blue/95"
                 >
-                  Pricing
+                  {t("pricing")}
                 </Link>
                 {resources.map((item) =>
                   item.type === "link" ? (
@@ -275,6 +281,7 @@ export default function Header() {
                     </HashLink>
                   )
                 )}
+                <ChooseLanguage isMobile={true} />
               </div>
               {user?.id ? (
                 <ProfileMenu />
@@ -284,15 +291,15 @@ export default function Header() {
                     to="/register"
                     className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-light-green hover:bg-dark-green"
                   >
-                    Sign up
+                    {t("sign_up")}
                   </Link>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    Existing customer?{" "}
+                    {t("existing_customer")}{" "}
                     <Link
                       to="/login"
                       className="text-dark-green hover:text-dark-green"
                     >
-                      Sign in
+                      {t("sign_in")}
                     </Link>
                   </p>
                 </div>

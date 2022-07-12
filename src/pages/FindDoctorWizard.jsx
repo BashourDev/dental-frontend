@@ -8,6 +8,7 @@ const FindDoctorWizard = () => {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [name, setName] = useState("");
+  const [cords, setCords] = useState({});
   return (
     <>
       <StepWizard>
@@ -17,6 +18,7 @@ const FindDoctorWizard = () => {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
+          setCords={setCords}
           stepToGoTo={"doctor-info"}
         />
         <DotcorInfoWizardStep

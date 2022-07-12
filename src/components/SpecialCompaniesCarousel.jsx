@@ -4,10 +4,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link, useNavigate } from "react-router-dom";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const SpecialCompaniesCarousel = ({ title, subtitle, companies = [] }) => {
+  const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
+
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -186,11 +189,13 @@ const SpecialCompaniesCarousel = ({ title, subtitle, companies = [] }) => {
                       draggable={false}
                       className="absolute inset-0"
                     />
-                    {company.name}
+                    {t("ln") === "en" ? company.en_name : company.ar_name}
                   </button>
                 </h3>
                 <p className="mt-1 text-xs text-medium-gray">
-                  {company?.country}, {company?.city}, {company?.address}
+                  {t("ln") === "en" ? company?.en_country : company?.ar_country}
+                  , {t("ln") === "en" ? company?.en_city : company?.ar_city},{" "}
+                  {t("ln") === "en" ? company?.en_address : company?.ar_address}
                 </p>
               </div>
             </div>

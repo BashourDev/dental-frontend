@@ -1,173 +1,37 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PricingPlanItem from "../components/PricingPlanItem";
 
 const Pricing = () => {
-  const [plans, setPlans] = useState({
-    dentists: [
-      {
-        id: 1,
-        name: "Padawan",
-        price: 20,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "Jedi Knight",
-        price: 50,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-          {
-            id: 4,
-            name: "something good 4",
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: "Jedi Master",
-        price: 80,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-          {
-            id: 4,
-            name: "something good 4",
-          },
-          {
-            id: 5,
-            name: "something good 5",
-          },
-        ],
-      },
-    ],
-    companies: [
-      {
-        id: 1,
-        name: "Padawan",
-        price: 20,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "Jedi Knight",
-        price: 50,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-          {
-            id: 4,
-            name: "something good 4",
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: "Jedi Master",
-        price: 80,
-        properties: [
-          {
-            id: 1,
-            name: "something good 1",
-          },
-          {
-            id: 2,
-            name: "something good 2",
-          },
-          {
-            id: 3,
-            name: "something good 3",
-          },
-          {
-            id: 4,
-            name: "something good 4",
-          },
-          {
-            id: 5,
-            name: "something good 5",
-          },
-        ],
-      },
-    ],
-  });
+  const { t } = useTranslation();
+  const [plans, setPlans] = useState({ dentists: [], companies: [] });
+
   return (
     <div className="flex flex-col items-center p-10 text-gray-700 md:pt-10 md:pb-20">
-      <h2 className="text-2xl font-medium">Dentists Plans</h2>
+      <h2 className="text-2xl font-medium">{t("dentist_plans")}</h2>
       <div className="flex justify-center flex-wrap gap-x-10 gap-y-7 max-w-6xl w-full">
         {plans.dentists.map((p) => (
           <PricingPlanItem
             key={p.id}
-            name={p?.name}
-            price={p?.price}
-            properties={p?.properties}
+            name={t("ln") === "en" ? p?.en_name : p?.ar_name}
+            quarter_price={p?.quarter_price}
+            semi_annual_price={p?.semi_annual_price}
+            annual_price={p?.annual_price}
+            features={p?.features}
           />
         ))}
       </div>
 
-      <h2 className="text-2xl font-medium mt-20">Companies Plans</h2>
+      <h2 className="text-2xl font-medium mt-20">{t("company_plans")}</h2>
       <div className="flex justify-center flex-wrap gap-x-10 gap-y-7 max-w-6xl w-full">
-        {plans.dentists.map((p) => (
+        {plans.companies.map((p) => (
           <PricingPlanItem
             key={p.id}
-            name={p?.name}
-            price={p?.price}
-            properties={p?.properties}
+            name={t("ln") === "en" ? p?.en_name : p?.ar_name}
+            quarter_price={p?.quarter_price}
+            semi_annual_price={p?.semi_annual_price}
+            annual_price={p?.annual_price}
+            features={p?.features}
           />
         ))}
       </div>

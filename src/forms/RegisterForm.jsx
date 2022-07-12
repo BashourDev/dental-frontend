@@ -7,12 +7,15 @@ import AppFormRadioButton from "../components/forms/AppFormRadioButton";
 import { useState } from "react";
 import AppProfilePictureInput from "../components/AppProfilePictureInput";
 import AppPlanRadioButtons from "../components/controls/AppPlanRadioButtons";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const plans = [
   {
+    id: 1,
     name: "Padawan",
     price: 20,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -28,9 +31,10 @@ const plans = [
     ],
   },
   {
+    id: 2,
     name: "Jedi Knight",
     price: 50,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -50,9 +54,10 @@ const plans = [
     ],
   },
   {
+    id: 3,
     name: "Jedi Master",
     price: 80,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -86,12 +91,17 @@ const plans = [
 ];
 
 const RegisterForm = () => {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedPlan, setSelectedPlan] = useState(plans[0]);
+  const [selectedPlanPeriod, setSelectedPlanPeriod] = useState({
+    plan_id: selectedPlan?.id,
+    subscription_period: 3,
+  });
 
   const [types, setTypes] = useState([
-    { id: 1, name: "Doctor" },
-    { id: 2, name: "Company" },
+    { id: 1, name: t("doctor") },
+    { id: 2, name: t("company") },
   ]);
 
   const initialValues = {
@@ -123,7 +133,7 @@ const RegisterForm = () => {
 
   return (
     <div className="bg-white rounded-md max-w-4xl  space-y-8 py-5 px-8 shadow-lg w-full mx-3">
-      <h2 className="text-dark-blue text-xl font-semibold">Enter Your Info</h2>
+      <h2 className="text-dark-blue text-xl font-semibold">{t("your_info")}</h2>
       <AppForm
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -138,9 +148,12 @@ const RegisterForm = () => {
             htmlFor="type"
             className="text-dark text-xs lg:text-sm focus:text-dark-blue mb-1 mx-1 focus-within:text-dark-blue"
           >
-            Choose the Account Type
+            {t("choose_account_type")}
           </label>
-          <div role="group" className="flex text-xs lg:text-sm items-center">
+          <div
+            role="group"
+            className="flex gap-x-4 text-xs lg:text-sm items-center"
+          >
             {types.map((type) => (
               <AppFormRadioButton
                 key={type.id}
@@ -154,84 +167,117 @@ const RegisterForm = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <AppFormInput
-            id={"name"}
-            label={"Your Name "}
-            placeholder={"Enter Your Name Here"}
+            id={"email"}
+            label={t("email_label")}
+            placeholder={"me@example.com"}
             isRequired={true}
           />
-
           <AppFormInput
             id={"phone"}
-            label={"Phone Number "}
+            label={t("phone_label")}
             placeholder={"+963 999 999 999"}
             isRequired={true}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"email"}
-            label={"Email Address "}
-            placeholder={"me@example.com"}
-            isRequired={true}
-          />
+        <div className="p-5 ring-1 ring-dark-blue/70 rounded-md">
+          <h1 className="text-xl text-dark-blue font-semibold pb-3">
+            {t("english_info")}
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"en_name"}
+              label={t("name_label")}
+              placeholder={t("name_placeholder")}
+              isRequired={true}
+            />
 
-          <AppFormInput
-            id={"country"}
-            label={"Country "}
-            placeholder={"Syria"}
+            <AppFormInput
+              id={"en_country"}
+              label={t("country_label")}
+              placeholder={t("country_placeholder")}
+              isRequired={true}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"en_city"}
+              label={t("city_label")}
+              placeholder={t("city_placeholder")}
+              isRequired={true}
+            />
+
+            <AppFormInput
+              id={"en_address"}
+              label={t("address_label")}
+              placeholder={t("address_placeholder")}
+              isRequired={true}
+            />
+          </div>
+
+          <AppFormTextArea
+            id={"en_bio"}
+            label={t("bio_label")}
+            placeholder={t("bio_placeholder")}
             isRequired={true}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"city"}
-            label={"City "}
-            placeholder={"Damascus"}
-            isRequired={true}
-          />
+        <div className="p-5 ring-1 ring-dark-blue/70 rounded-md">
+          <h1 className="text-xl text-dark-blue font-semibold pb-3">
+            {t("arabic_info")}
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"ar_name"}
+              label={t("name_label")}
+              placeholder={t("name_placeholder")}
+              isRequired={true}
+            />
 
-          <AppFormInput
-            id={"address"}
-            label={"Address "}
-            placeholder={"Al-Hamrah main street"}
+            <AppFormInput
+              id={"ar_country"}
+              label={t("country_label")}
+              placeholder={t("country_placeholder")}
+              isRequired={true}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"ar_city"}
+              label={t("city_label")}
+              placeholder={t("city_placeholder")}
+              isRequired={true}
+            />
+
+            <AppFormInput
+              id={"ar_address"}
+              label={t("address_label")}
+              placeholder={t("address_placeholder")}
+              isRequired={true}
+            />
+          </div>
+
+          <AppFormTextArea
+            id={"ar_bio"}
+            label={t("bio_label")}
+            placeholder={t("bio_placeholder")}
             isRequired={true}
           />
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <AppFormInput
-            id={"password"}
-            label={"Password "}
-            placeholder={"Enter The Password"}
-            isRequired={true}
-            type="password"
-          />
-
-          <AppFormInput
-            id={"passwordConfirmation"}
-            label={"Confirm Password "}
-            placeholder={"Repeat The Password"}
-            isRequired={true}
-            type="password"
-          />
-        </div>
-        <AppFormTextArea
-          id={"bio"}
-          label={"Your Bio "}
-          placeholder={"some thing about yourself"}
-          isRequired={true}
-        />
 
         <AppPlanRadioButtons
           selected={selectedPlan}
           setSelected={setSelectedPlan}
           plans={plans}
           isRegister={true}
+          selectedPeriod={selectedPlanPeriod}
+          setSelectedPeriod={setSelectedPlanPeriod}
         />
 
-        <AppSubmitButton>Submit</AppSubmitButton>
+        <AppSubmitButton>{t("send_request")}</AppSubmitButton>
       </AppForm>
     </div>
   );

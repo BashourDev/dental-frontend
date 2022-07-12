@@ -1,0 +1,106 @@
+{
+  "ln": "en",
+
+  "language": "Language",
+
+  "try_it_now": "Try It Now",
+  "learn_more": "Learn More",
+
+  "doctors": "Doctors",
+  "companies": "Companies",
+  "pricing": "Pricing",
+  "more": "More",
+  "sign_in": "Sign In",
+  "sign_up": "Sign Up",
+  "existing_customer": "Existing Customer?",
+  "faqs": "FAQs",
+  "faqs_description": "Get all of your questions answered in our frequently asked questions section.",
+  "contact_us": "Contact Us",
+  "contact_us_description": "Contact us on our available social platforms.",
+  "about_us": "About Us",
+  "about_us_description": "Learn more about who we are and what is our mission.",
+  "account": "Account",
+  "dashboard": "Dashboard",
+  "logout": "Logout",
+
+  "search": "search",
+  "please_enter_your_location_or": "Please Enter Your Location Or",
+  "let_us_select_it_For_you": "Let Us Select It For You",
+  "next": "Next",
+  "do_you_have_a_doctor_in_mind": "Do You Have a Doctor In Mind?",
+  "leave_it_blank_if_you_dont": "Leave It Blank if You Don't.",
+  "do_you_have_a_company_in_mind": "Do You Have a Company In Mind?",
+  "done": "Done",
+  "entity_name_placeholder": "Enter the name here",
+
+  "description": "Description:",
+  "before": "Before",
+  "after": "After",
+
+  "general_info": "General Info",
+  "gallery": "Gallery",
+
+  "profile": "Profile",
+  "plan": "Plan",
+
+  "your_info": "Your Info",
+
+  "choose_image": "Choose Image",
+  "email_label": "Email Address ",
+  "phone_label": "Phone Number ",
+
+  "english_info": "English Info",
+  "arabic_info": "Arabic Info",
+  "name_label": "Your Name ",
+  "name_placeholder": "Enter Your Name Here",
+  "country_label": "Country ",
+  "country_placeholder": "Enter Your Country Here",
+  "city_label": "City ",
+  "city_placeholder": "Enter Your City Here",
+  "address_label": "Address ",
+  "address_placeholder": "Enter Your Address Here",
+  "bio_label": "Bio ",
+  "bio_placeholder": "Enter Your biography Here",
+  "save_changes": "Save Changes",
+
+  "change_password": "Change Password",
+  "current_password": "Current Password ",
+  "new_password": "New Password ",
+  "confirm_new_password": "Confirm New Password ",
+
+  "create_new_project": "Create New Project",
+  "edit_project": "Edit Project",
+  "edit": "Edit",
+  "delete": "Delete",
+
+  "english_description": "English Description",
+  "arabic_description": "Arabic Description",
+  "create": "Create",
+  "update": "Update",
+
+  "are_you_sure": "Are you sure?",
+  "delete_project_message": "Once deleted, you will not be able to recover this Project!",
+  "project_deleted_message": "Poof! Your project has been deleted!",
+  "project_safe_message": "Your project is safe!",
+
+  "select_plan": "* Select a plan.",
+  "select_new_plan": "* Select a new plan and send a request to change it.",
+  "send_request": "Send Request",
+  "select_plan_period": "Select a period",
+
+  "choose_account_type": "Choose the Account Type",
+  "doctor": "Doctor",
+  "company": "Company",
+
+  "login": "Login",
+  "password": "Password",
+  "dont_have_an_account": "don't have an account?",
+  "register_instead": "register instead",
+
+  "dentist_plans": "Dentists Plans",
+  "company_plans": "Companies Plans",
+
+  "join_now": "Join Now",
+
+  "months": "mo."
+}

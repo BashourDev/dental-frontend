@@ -1,7 +1,15 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const PricingPlanItem = ({ name, price, properties }) => {
+const PricingPlanItem = ({
+  name,
+  quarter_price,
+  semi_annual_price,
+  annual_price,
+  features,
+}) => {
+  const { t } = useTranslation();
   return (
     <>
       <div className="flex flex-col w-72 mt-8 overflow-hidden bg-white rounded-lg shadow-lg">
@@ -9,13 +17,23 @@ const PricingPlanItem = ({ name, price, properties }) => {
           <span className="font-semibold">{name}</span>
           <div className="flex items-center">
             <span className="text-3xl">$</span>
-            <span className="text-5xl font-bold">{price}</span>
-            <span className="text-2xl text-gray-500">/mo</span>
+            <span className="text-5xl font-bold">{quarter_price}</span>
+            <span className="text-2xl text-gray-500">/3 {t("months")}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-xl">$</span>
+            <span className="text-2xl font-bold">{semi_annual_price}</span>
+            <span className="text-2xl text-gray-500">/6 {t("months")}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-xl">$</span>
+            <span className="text-2xl font-bold">{annual_price}</span>
+            <span className="text-2xl text-gray-500">/12 {t("months")}</span>
           </div>
         </div>
         <div className="p-10">
           <ul>
-            {properties.map((p, i) => (
+            {features.map((p, i) => (
               <li key={i} className="flex items-center">
                 <svg
                   className="w-5 h-5 text-dark-green fill-current"
@@ -29,7 +47,9 @@ const PricingPlanItem = ({ name, price, properties }) => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="ml-2">{p?.name}</span>
+                <span className="ml-2">
+                  {t("ln") === "en" ? p?.en_name : p?.ar_name}
+                </span>
               </li>
             ))}
           </ul>
@@ -39,7 +59,7 @@ const PricingPlanItem = ({ name, price, properties }) => {
             to={"/register"}
             className="flex self-end items-center justify-center w-full h-12 px-6 text-sm uppercase bg-light-green text-white rounded-lg"
           >
-            Join now
+            {t("join_now")}
           </Link>
         </div>
       </div>

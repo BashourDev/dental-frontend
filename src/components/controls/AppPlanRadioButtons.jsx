@@ -1,18 +1,23 @@
 import { RadioGroup } from "@headlessui/react";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import AppButton from "../controls/AppButton";
+import AppPlanPeriodRadioButtons from "./AppPlanPeriodRadioButtons";
 
 export default function AppPlanRadioButtons({
   selected,
   setSelected,
+  selectedPeriod,
+  setSelectedPeriod,
   plans,
   isRegister,
 }) {
+  const { t } = useTranslation();
+
   return (
     <div className="w-full px-4 pt-5 pb-16 space-y-8 max-w-5xl">
       <h1 className="text-lg md:text-2xl font-bold text-dark-blue w-full text-center">
-        {isRegister
-          ? "* Select a plan."
-          : "* Select a new plan and send a request to change it."}
+        {isRegister ? t("select_plan") : t("select_new_plan")}
       </h1>
       <div className="flex flex-col mx-auto w-full">
         <RadioGroup value={selected} onChange={setSelected}>
@@ -20,7 +25,7 @@ export default function AppPlanRadioButtons({
           <div className="flex flex-wrap justify-center gap-5">
             {plans.map((plan) => (
               <RadioGroup.Option
-                key={plan.name}
+                key={plan.en_name}
                 value={plan}
                 className={({ active, checked }) =>
                   `${
@@ -46,9 +51,17 @@ export default function AppPlanRadioButtons({
                             }`}
                           >
                             <span className="text-sm font-semibold block">
-                              {plan.name}
+                              {t("ln") === "en" ? plan.en_name : plan.ar_name}
                             </span>
-                            <span>$ {plan.price} /mo.</span>
+                            {/* <span className="block">
+                              $ {plan?.quarter_price} /3 mo.
+                            </span>
+                            <span className="block">
+                              $ {plan?.semi_annual_price} /6 mo.
+                            </span>
+                            <span className="block">
+                              $ {plan?.annual_price} /12 mo.
+                            </span> */}
                           </RadioGroup.Label>
                           <RadioGroup.Description
                             as="span"
@@ -57,7 +70,7 @@ export default function AppPlanRadioButtons({
                             }`}
                           >
                             <span aria-hidden="true">{/* &middot; */}</span>{" "}
-                            {plan.properties.map((p, j) => (
+                            {plan.features.map((p, j) => (
                               <li key={j} className="flex items-center">
                                 <svg
                                   className="w-5 h-5 text-dark-green fill-current"
@@ -71,7 +84,9 @@ export default function AppPlanRadioButtons({
                                     clipRule="evenodd"
                                   />
                                 </svg>
-                                <span className="ml-2 py-1">{p?.name}</span>
+                                <span className="ml-2 py-1">
+                                  {t("ln") === "en" ? p?.en_name : p?.ar_name}
+                                </span>
                               </li>
                             ))}
                           </RadioGroup.Description>
@@ -89,9 +104,15 @@ export default function AppPlanRadioButtons({
             ))}
           </div>
         </RadioGroup>
+        <AppPlanPeriodRadioButtons
+          isRegister={isRegister}
+          plan={selected}
+          selected={selectedPeriod}
+          setSelected={setSelectedPeriod}
+        />
         {isRegister ? null : (
           <AppButton className="my-8 w-2/3 md:w-1/3 self-center">
-            Send Request
+            {t("send_request")}
           </AppButton>
         )}
       </div>

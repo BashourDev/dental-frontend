@@ -1,278 +1,97 @@
+import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import AboutUsHero from "../components/heros/AboutUsHero";
 import FindDoctorHero from "../components/heros/FindDoctorHero";
 import SpecialCentersCarousel from "../components/SpecialCentersCarousel";
 import SpecialCompaniesCarousel from "../components/SpecialCompaniesCarousel";
+import api from "../api/api";
+import { useContext } from "react";
+import InfoContext from "../contexts/infoContext";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
-  let specialCenters = [
-    {
-      id: 1,
-      name: "great center 1",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 2,
-      name: "great center 2",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 3,
-      name: "great center 3",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 4,
-      name: "great center 4",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 5,
-      name: "great center 5",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 6,
-      name: "great center 6",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 7,
-      name: "great center 7",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 8,
-      name: "great center 8",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 9,
-      name: "great center 9",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 10,
-      name: "great center 10",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-  ];
+  const [specialCenters, setSpecialCenters] = useState([]);
+  const [specialCompanies, setSpecialCompanies] = useState([]);
 
-  let specialCompanies = [
-    {
-      id: 1,
-      name: "great company 1",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 2,
-      name: "great company 2",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 3,
-      name: "great company 3",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 4,
-      name: "great company 4",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 5,
-      name: "great company 5",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 6,
-      name: "great company 6",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 7,
-      name: "great company 7",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 8,
-      name: "great company 8",
-      country: "Syria",
-      city: "Homs",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://media.istockphoto.com/photos/young-happy-woman-during-dental-procedure-at-dentists-office-picture-id1349328691?b=1&k=20&m=1349328691&s=170667a&w=0&h=NsFILWeIeZYboZnGu2vT3Ni408nyahznmyoV7V6gGl8=",
-      },
-    },
-    {
-      id: 9,
-      name: "great company 9",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-    {
-      id: 10,
-      name: "great company 10",
-      country: "Lebanon",
-      city: "Sin El-Feil",
-      address: "main street",
-      first_media_only: {
-        name: "blah",
-        original_url:
-          "https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg",
-      },
-    },
-  ];
+  const { t } = useTranslation();
+
+  const infoContext = useContext(InfoContext);
+
+  const getDoctorsAndCompanies = async () => {
+    const res = await api.get("/special/doctors-and-companies");
+    setSpecialCenters(res.data.specialDoctors);
+    setSpecialCompanies(res.data.specialCompanies);
+  };
+
+  useEffect(() => {
+    getDoctorsAndCompanies();
+  }, []);
+
   return (
     <div>
-      <FindDoctorHero />
+      <FindDoctorHero
+        welcomeBlueTitle={
+          t("ln") === "en"
+            ? infoContext?.info?.en_welcome_blue_title
+            : infoContext?.info?.ar_welcome_blue_title
+        }
+        welcomeGreenTitle={
+          t("ln") === "en"
+            ? infoContext?.info?.en_welcome_green_title
+            : infoContext?.info?.ar_welcome_green_title
+        }
+        welcomeSubtitle={
+          t("ln") === "en"
+            ? infoContext?.info?.en_welcome_subtitle
+            : infoContext?.info?.ar_welcome_subtitle
+        }
+      />
       <div id="about-us" className="py-20">
         <AboutUsHero
-          title={"About Us"}
-          subtitle={"Learn More About Who We Are"}
+          title={
+            t("ln") === "en"
+              ? infoContext?.info?.en_about_us_title
+              : infoContext?.info?.ar_about_us_title
+          }
+          subtitle={
+            t("ln") === "en"
+              ? infoContext?.info?.en_about_us_subtitle
+              : infoContext?.info?.ar_about_us_subtitle
+          }
           description={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas temporibus reiciendis voluptatem rem quam animi, repellat, quisquam ab ducimus dolorum similique quibusdam fugit nulla placeat eaque ipsum ullam dolores doloremque?"
+            t("ln") === "en"
+              ? infoContext?.info?.en_about_us_description
+              : infoContext?.info?.ar_about_us_description
           }
         />
       </div>
       <div className="max-w-7xl w-screen mx-auto pb-10 space-y-10 overflow-x-hidden">
         <SpecialCompaniesCarousel
-          title={"Special Companies"}
-          subtitle={"Check Out Our Selective Special Companies"}
+          title={
+            t("ln") === "en"
+              ? infoContext?.info?.en_special_companies_title
+              : infoContext?.info?.ar_special_companies_title
+          }
+          subtitle={
+            t("ln") === "en"
+              ? infoContext?.info?.en_special_companies_subtitle
+              : infoContext?.info?.ar_special_companies_subtitle
+          }
           companies={specialCompanies}
         />
       </div>
       <div className="max-w-7xl w-screen mx-auto  pt-10 pb-5 space-y-10 overflow-x-hidden">
         <SpecialCentersCarousel
-          title={"Special Doctors"}
-          subtitle={"Check Out Our Selective Special Doctors"}
+          title={
+            t("ln") === "en"
+              ? infoContext?.info?.en_special_centers_title
+              : infoContext?.info?.ar_special_centers_title
+          }
+          subtitle={
+            t("ln") === "en"
+              ? infoContext?.info?.en_special_centers_subtitle
+              : infoContext?.info?.ar_special_centers_subtitle
+          }
           centers={specialCenters}
         />
       </div>

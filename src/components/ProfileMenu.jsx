@@ -1,6 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { Fragment, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { MdDashboard, MdLogout, MdPerson } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../api/user";
@@ -12,11 +13,12 @@ function classNames(...classes) {
 
 export default function ProfileMenu() {
   const userContext = useContext(UserContext);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const resources = [
     {
       id: 1,
-      name: "Dashboard",
+      name: t("dashboard"),
       onClick: () => {
         navigate("/user-dashboard/profile");
       },
@@ -24,7 +26,7 @@ export default function ProfileMenu() {
     },
     {
       id: 2,
-      name: "logout",
+      name: t("logout"),
       onClick: () => {
         setUser({});
         userContext.setUser({});
@@ -44,7 +46,7 @@ export default function ProfileMenu() {
               "group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-dark-blue/90 focus:outline-none"
             )}
           >
-            <MdPerson className="text-lg mr-1" /> <span> Account</span>
+            <MdPerson className="text-lg mr-1" /> <span> {t("account")}</span>
             <ChevronDownIcon
               className={classNames(
                 open ? "text-dark-blue/90" : "text-dark-blue",
@@ -76,7 +78,7 @@ export default function ProfileMenu() {
                         className="flex-shrink-0 h-6 w-6 text-dark-blue"
                         aria-hidden="true"
                       />
-                      <div className="ml-4">
+                      <div className="mx-4">
                         <p className="text-base font-medium text-gray-900">
                           {item.name}
                         </p>

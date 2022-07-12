@@ -5,7 +5,7 @@ const plans = [
   {
     name: "Padawan",
     price: 20,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -23,7 +23,7 @@ const plans = [
   {
     name: "Jedi Knight",
     price: 50,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -45,7 +45,7 @@ const plans = [
   {
     name: "Jedi Master",
     price: 80,
-    properties: [
+    features: [
       {
         id: 1,
         name: "something good 1",
@@ -80,6 +80,10 @@ const plans = [
 
 const UserPlanChange = () => {
   const [selectedPlan, setSelectedPlan] = useState(plans[0]);
+  const [selectedPlanPeriod, setSelectedPlanPeriod] = useState({
+    plan_id: selectedPlan?.id,
+    subscription_period: 3,
+  });
   return (
     <div className="w-full">
       <AppPlanRadioButtons
@@ -87,6 +91,8 @@ const UserPlanChange = () => {
         setSelected={setSelectedPlan}
         plans={plans}
         isRegister={false}
+        selectedPeriod={selectedPlanPeriod}
+        setSelectedPeriod={setSelectedPlanPeriod}
       />
     </div>
   );

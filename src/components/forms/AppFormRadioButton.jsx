@@ -11,7 +11,7 @@ const AppFormRadioButton = ({ id, name, value, text, checked = false }) => {
   };
 
   return (
-    <>
+    <div>
       {/* <label>
         <input
           id={id}
@@ -41,7 +41,7 @@ const AppFormRadioButton = ({ id, name, value, text, checked = false }) => {
       >
         {text}
       </label>
-    </>
+    </div>
   );
 };
 

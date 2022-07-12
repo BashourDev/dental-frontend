@@ -1,43 +1,11 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import CompanyItem from "../components/CompanyItem";
 import DoctorItem from "../components/DoctorItem";
 
 const CompaniesListing = (props) => {
-  const [companies, setCompanies] = useState([
-    {
-      id: 1,
-      name: "Bashour Atrini",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Doctor",
-    },
-    {
-      id: 2,
-      name: "Bashour Atrini 2",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Company",
-    },
-    {
-      id: 3,
-      name: "Bashour Atrini 3",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Doctor",
-    },
-  ]);
+  const { t } = useTranslation();
+  const [companies, setCompanies] = useState([]);
 
   return (
     <div className="px-2 bg-white md:px-0">
@@ -46,10 +14,14 @@ const CompaniesListing = (props) => {
           {companies.map((company) => (
             <CompanyItem
               key={company.id}
-              name={company?.name}
-              country={company?.country}
-              city={company?.city}
-              address={company?.address}
+              name={t("ln") === "en" ? company?.en_name : company?.ar_name}
+              country={
+                t("ln") === "en" ? company?.en_country : company?.ar_country
+              }
+              city={t("ln") === "en" ? company?.en_city : company?.ar_city}
+              address={
+                t("ln") === "en" ? company?.en_address : company?.ar_address
+              }
             />
           ))}
         </div>
