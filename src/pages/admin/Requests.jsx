@@ -1,45 +1,22 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import api from "../../api/api";
 import RequestDetailsModal from "../../components/modals/RequestDetailsModal";
 import RequestItem from "../../components/RequestItem";
 
 const Requests = () => {
-  const [requests, setRequests] = useState([
-    {
-      id: 1,
-      name: "Bashour Atrini",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Doctor",
-    },
-    {
-      id: 2,
-      name: "Bashour Atrini 2",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Company",
-    },
-    {
-      id: 3,
-      name: "Bashour Atrini 3",
-      country: "Syria",
-      city: "Homs",
-      address: "Al-Qalatiah main street",
-      bio: "something about myself which is supposed to be a long long long text and this is just for testing",
-      phone: "+963943432432",
-      email: "some@email.com",
-      type: "Doctor",
-    },
-  ]);
+  const [requests, setRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const getRequests = async () => {
+    const res = await api.get("/admin/users/requests");
+    setRequests(res.data);
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
 
   const handleShowDetails = (req) => {
     setSelectedRequest(req);
@@ -50,10 +27,11 @@ const Requests = () => {
       {requests.map((request) => (
         <RequestItem
           key={request.id}
-          name={request?.name}
-          country={request?.country}
-          city={request?.city}
-          address={request?.address}
+          name={request?.en_name}
+          country={request?.en_country}
+          city={request?.en_city}
+          address={request?.en_address}
+          photo={request?.first_media_only?.original_url}
           onShowDetails={() => handleShowDetails(request)}
         />
       ))}
@@ -61,6 +39,7 @@ const Requests = () => {
         isOpen={isDetailsOpen}
         onClose={() => setIsDetailsOpen(false)}
         info={selectedRequest}
+        setRequests={setRequests}
       />
     </div>
   );

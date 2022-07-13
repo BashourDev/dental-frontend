@@ -2,11 +2,21 @@ import React from "react";
 import { MdLocationOn, MdMyLocation } from "react-icons/md";
 import AppButton from "./controls/AppButton";
 
-const RequestItem = ({ id, name, country, city, address, onShowDetails }) => {
+const RequestItem = ({
+  id,
+  name,
+  country,
+  city,
+  address,
+  photo,
+  onShowDetails,
+}) => {
   return (
     <div className="flex flex-col h-36 w-full bg-white p-2 shadow-sm">
       <div className="flex">
-        <div className="min-h-[4rem] min-w-[4rem] rounded-full bg-light-gray/70"></div>
+        <div className="min-h-[4rem] min-w-[4rem] max-h-[4rem] max-w-[4rem] rounded-full bg-light-gray/70">
+          <img src={photo} alt="profile pic" />
+        </div>
         <div className="w-full flex flex-col justify-between p-2">
           <h4 className="text-base text-dark font-medium">{name}</h4>
           <span className="flex text-sm text-dark/60">

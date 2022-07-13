@@ -1,7 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function AppModal({ isOpen, title, children, onClose }) {
+  const { t } = useTranslation();
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -39,7 +41,11 @@ export default function AppModal({ isOpen, title, children, onClose }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full  max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div
+                className={`${
+                  t("ln") === "en" ? "text-left" : "text-right"
+                } inline-block w-full items-start max-w-md p-6 my-8 overflow-hidden align-middle transition-all transform bg-white shadow-xl rounded-2xl`}
+              >
                 <Dialog.Title
                   as="h3"
                   className="text-base font-medium leading-6 text-gray-900"
