@@ -9,95 +9,34 @@ import AppProfilePictureInput from "../components/AppProfilePictureInput";
 import AppPlanRadioButtons from "../components/controls/AppPlanRadioButtons";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-
-const plans = [
-  {
-    id: 1,
-    name: "Padawan",
-    price: 20,
-    features: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Jedi Knight",
-    price: 50,
-    features: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-      {
-        id: 4,
-        name: "something good 4",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Jedi Master",
-    price: 80,
-    features: [
-      {
-        id: 1,
-        name: "something good 1",
-      },
-      {
-        id: 2,
-        name: "something good 2",
-      },
-      {
-        id: 3,
-        name: "something good 3",
-      },
-      {
-        id: 4,
-        name: "something good 4",
-      },
-      {
-        id: 5,
-        name: "something good 5",
-      },
-      {
-        id: 6,
-        name: "something good 6",
-      },
-      {
-        id: 7,
-        name: "something good 7",
-      },
-    ],
-  },
-];
+import api from "../api/api";
+import LocationWizardStep from "../components/LocationWizardStep";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const { t } = useTranslation();
+  const [plans, setPlans] = useState([]);
+  const [cords, setCords] = useState({});
   const [selectedImage, setSelectedImage] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState(plans[0]);
+  const [selectedPlan, setSelectedPlan] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedPlanPeriod, setSelectedPlanPeriod] = useState({
     plan_id: selectedPlan?.id,
     subscription_period: 3,
   });
+
+  const navigate = useNavigate();
+
+  const getPlan = async () => {
+    const res = await api.get("/plans");
+    setPlans(res.data);
+    setSelectedPlan(res.data[0]);
+  };
+
+  useEffect(() => {
+    getPlan();
+  }, []);
 
   const [types, setTypes] = useState([
     { id: 1, name: t("doctor") },
@@ -105,31 +44,118 @@ const RegisterForm = () => {
   ]);
 
   const initialValues = {
-    name: "",
+    email: "",
     phone: "",
     type: types[0].name,
-    email: "",
-    bio: "",
-    country: "",
-    city: "",
-    address: "",
+    password: "",
+    passwordConfirmation: "",
+
+    en_name: "",
+    en_country: "",
+    en_city: "",
+    en_address: "",
+    en_bio: "",
+
+    ar_name: "",
+    ar_country: "",
+    ar_city: "",
+    ar_address: "",
+    ar_bio: "",
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is a required field"),
-    phone: Yup.string().required("Phone Number is a required field"),
-    email: Yup.string().required("Email is a required field"),
-    bio: Yup.string().required("Bio is a required field"),
-    country: Yup.string().required("Country is a required field"),
-    city: Yup.string().required("City is a required field"),
-    address: Yup.string().required("Address is a required field"),
+    phone: Yup.string().required(t("required_field")),
+    email: Yup.string().required(t("required_field")),
 
-    password: Yup.string().required("Enter the password"),
+    en_name: Yup.string().required(t("required_field")),
+    en_bio: Yup.string().required(t("required_field")),
+    en_country: Yup.string().required(t("required_field")),
+    en_city: Yup.string().required(t("required_field")),
+    en_address: Yup.string().required(t("required_field")),
+
+    ar_name: Yup.string().required(t("required_field")),
+    ar_bio: Yup.string().required(t("required_field")),
+    ar_country: Yup.string().required(t("required_field")),
+    ar_city: Yup.string().required(t("required_field")),
+    ar_address: Yup.string().required(t("required_field")),
+
+    password: Yup.string().required(t("required_field")),
     passwordConfirmation: Yup.string().oneOf(
       [Yup.ref("password"), null],
-      "password and password confirmation should match"
+      t("passwords_mismatch")
     ),
   });
+
+  const handleSubmit = async (values) => {
+    if (!selectedImage) {
+      swal({
+        icon: "warning",
+        text: t("please_select_a_profile_image"),
+      });
+      return;
+    }
+
+    if (!cords.latitude) {
+      swal({
+        icon: "warning",
+        text: t("please_select_your_coordinates"),
+      });
+      return;
+    }
+
+    if (
+      !selectedPlanPeriod?.subscription_period ||
+      !selectedPlanPeriod?.plan_id
+    ) {
+      swal({
+        icon: "warning",
+        text: t("please_select_a_plan"),
+      });
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("profile_pic", selectedImage);
+    formData.append("email", values?.email);
+    formData.append("phone", values?.phone);
+    formData.append("type", values?.type);
+    formData.append("password", values?.password);
+
+    formData.append("en_name", values?.en_name);
+    formData.append("en_country", values?.en_country);
+    formData.append("en_city", values?.en_city);
+    formData.append("en_address", values?.en_address);
+    formData.append("en_bio", values?.en_bio);
+
+    formData.append("ar_name", values?.ar_name);
+    formData.append("ar_country", values?.ar_country);
+    formData.append("ar_city", values?.ar_city);
+    formData.append("ar_address", values?.ar_address);
+    formData.append("ar_bio", values?.ar_bio);
+
+    formData.append("plan_id", selectedPlanPeriod?.plan_id);
+    formData.append(
+      "subscription_period",
+      selectedPlanPeriod?.subscription_period
+    );
+
+    formData.append("latitude", cords.latitude);
+    formData.append("longitude", cords.longitude);
+
+    try {
+      setIsLoading(true);
+      await api.post(`/register`, formData);
+      swal(t("proccessing_request"), {
+        icon: "success",
+      });
+      navigate("/#");
+      setSelectedImage("");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white rounded-md max-w-4xl  space-y-8 py-5 px-8 shadow-lg w-full mx-3">
@@ -137,6 +163,7 @@ const RegisterForm = () => {
       <AppForm
         initialValues={initialValues}
         validationSchema={validationSchema}
+        onSubmit={handleSubmit}
       >
         <AppProfilePictureInput
           selectedFile={selectedImage}
@@ -159,7 +186,7 @@ const RegisterForm = () => {
                 key={type.id}
                 id={type.id}
                 name={"type"}
-                value={type.name}
+                value={type.id}
                 text={type.name}
               />
             ))}
@@ -268,6 +295,23 @@ const RegisterForm = () => {
           />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <AppFormInput
+            id={"password"}
+            label={t("password")}
+            placeholder={"••••••••••"}
+            isRequired={true}
+            type="password"
+          />
+          <AppFormInput
+            id={"passwordConfirmation"}
+            label={t("password_confirmation")}
+            placeholder={"••••••••••"}
+            isRequired={true}
+            type="password"
+          />
+        </div>
+
         <AppPlanRadioButtons
           selected={selectedPlan}
           setSelected={setSelectedPlan}
@@ -276,8 +320,10 @@ const RegisterForm = () => {
           selectedPeriod={selectedPlanPeriod}
           setSelectedPeriod={setSelectedPlanPeriod}
         />
-
-        <AppSubmitButton>{t("send_request")}</AppSubmitButton>
+        <LocationWizardStep setCords={setCords} hideNext />
+        <AppSubmitButton isLoading={isLoading}>
+          {t("send_request")}
+        </AppSubmitButton>
       </AppForm>
     </div>
   );

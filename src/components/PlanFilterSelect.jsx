@@ -2,11 +2,7 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
-const options = [{ name: "All" }, { name: "Dentists" }, { name: "Companies" }];
-
-export default function PlansFilterSelect() {
-  const [selected, setSelected] = useState(options[0]);
-
+export default function PlansFilterSelect({ selected, setSelected, options }) {
   return (
     <div className="w-44 z-20">
       <Listbox value={selected} onChange={setSelected}>

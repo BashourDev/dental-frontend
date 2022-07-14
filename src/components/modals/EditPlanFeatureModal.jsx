@@ -14,27 +14,41 @@ const EditPlanFeatureModal = ({
   const handleSubmit = (values) => {
     setFeatures((old) =>
       old.map((o) => {
-        if (o.id === values.id) {
-          o.title = values.title;
+        if (o.en_name === selectedFeature?.en_name) {
+          o.en_name = values.en_name;
+          o.ar_name = values.ar_name;
         }
         return o;
       })
     );
+
+    onClose();
   };
   return (
     <AppModal isOpen={isOpen} onClose={onClose} title={"Add Feature"}>
       <div className="space-y-3">
         <AppForm
-          initialValues={{ title: selectedFeature?.title }}
+          initialValues={{
+            en_name: selectedFeature?.en_name,
+            ar_name: selectedFeature?.ar_name,
+          }}
           validationSchema={Yup.object().shape({
-            title: Yup.string().required().label("Title"),
+            en_name: Yup.string().required().label("English Title"),
+            ar_name: Yup.string().required().label("Arabic Title"),
           })}
           onSubmit={handleSubmit}
         >
           <AppFormInput
-            id={"title"}
-            label={"Feature Title "}
-            placeholder={"Enter The Feature Title Here"}
+            id={"en_name"}
+            label={"Feature Title in English "}
+            placeholder={"Enter The Feature Title in English Here"}
+            isRequired={true}
+          />
+
+          <AppFormInput
+            id={"ar_name"}
+            label={"Feature Title in Arabic "}
+            placeholder={"Enter The Feature Title in Arabic Here"}
             isRequired={true}
           />
           <AppSubmitButton>Update</AppSubmitButton>

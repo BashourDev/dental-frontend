@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import api from "../../api/api";
 import AppButton from "../controls/AppButton";
 import AppModal from "./AppModal";
@@ -5,13 +6,22 @@ import AppModal from "./AppModal";
 const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
   const handleActivate = async () => {
     await api.put(`/admin/users/${info?.id}/activate`);
-
     setRequests((old) => old.filter((o) => o.id !== info.id));
+
+    swal("The request has been accepted!", {
+      icon: "success",
+    });
+    onClose();
   };
 
   const handleReject = async () => {
     await api.post(`/admin/users/delete`, { ids: [info.id] });
     setRequests((old) => old.filter((o) => o.id !== info.id));
+
+    swal("The request has been rejected!", {
+      icon: "success",
+    });
+    onClose();
   };
 
   return (
@@ -21,6 +31,12 @@ const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
           <label className="text-dark-blue text-base font-medium">Type:</label>
           <span className="text-dark">
             {info?.type === 1 ? "Doctor" : "Company"}
+          </span>
+        </div>
+        <div className="flex space-x-2">
+          <label className="text-dark-blue text-base font-medium">Plan:</label>
+          <span className="text-dark">
+            {info?.plan.en_name} ({info?.subscription_period} mo.)
           </span>
         </div>
         <div className="flex space-x-2">

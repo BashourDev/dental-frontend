@@ -18,6 +18,7 @@ const FindDoctorWizard = () => {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
+          cords={cords}
           setCords={setCords}
           stepToGoTo={"doctor-info"}
         />
@@ -26,7 +27,12 @@ const FindDoctorWizard = () => {
           name={name}
           setName={setName}
         />
-        <DoctorsListing stepName="doctors-listing" />
+        <DoctorsListing
+          stepName="doctors-listing"
+          latitude={cords.latitude}
+          longitude={cords.longitude}
+          name={name}
+        />
       </StepWizard>
     </>
   );

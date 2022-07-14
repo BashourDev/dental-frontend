@@ -20,6 +20,7 @@ const FindCompanyWizard = () => {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
+          cords={cords}
           setCords={setCords}
           stepToGoTo={"company-info"}
         />
@@ -28,7 +29,12 @@ const FindCompanyWizard = () => {
           name={name}
           setName={setName}
         />
-        <CompaniesListing stepName="companies-listing" />
+        <CompaniesListing
+          stepName="companies-listing"
+          latitude={cords.latitude}
+          longitude={cords.longitude}
+          name={name}
+        />
       </StepWizard>
     </>
   );

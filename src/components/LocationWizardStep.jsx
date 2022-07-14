@@ -11,6 +11,7 @@ import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import SearchField from "./SearchField";
 import SearchField2 from "./SearchField2";
 import { useTranslation } from "react-i18next";
+import swal from "sweetalert";
 // import Search from "react-leaflet-search";
 
 let DefaultIcon = L.icon({
@@ -57,15 +58,15 @@ const LocationWizardStep = (props) => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          const res = await axios.get(
-            `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
-          );
-          props.setCountry(res.data.address.country);
-          if (res.data.address.city) {
-            props.setCity(res.data.address.city);
-          } else {
-            props.setCity(res.data.address.state);
-          }
+          // const res = await axios.get(
+          //   `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+          // );
+          // props.setCountry(res.data.address.country);
+          // if (res.data.address.city) {
+          //   props.setCity(res.data.address.city);
+          // } else {
+          //   props.setCity(res.data.address.state);
+          // }
         });
       } catch (error) {
       } finally {
@@ -74,8 +75,21 @@ const LocationWizardStep = (props) => {
     }
   };
 
+  const handleGoToNextStep = () => {
+    if (!props.cords.latitude) {
+      swal({
+        icon: "warning",
+        text: t("please_select_your_coordinates"),
+      });
+      return;
+    }
+    props.goToNamedStep(props.stepToGoTo);
+  };
+
   return (
-    <div className="px-2 py-20 bg-white md:px-0">
+    <div
+      className={`px-2 ${props.hideNext ? "pb-5" : "py-20"} bg-white md:px-0`}
+    >
       <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
         <div className="flex flex-col flex-wrap items-center sm:-mx-3">
           <div className="w-full md:px-3">
@@ -125,33 +139,35 @@ const LocationWizardStep = (props) => {
               </MapContainer>
             </div>
           </div>
-          <div className="relative w-full flex justify-start flex-col sm:flex-row sm:gap-x-4 py-10">
-            <button
-              onClick={() => props.goToNamedStep(props.stepToGoTo)}
-              className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto"
-            >
-              {t("next")}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 ml-1"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+          {props.hideNext ? null : (
+            <div className="relative w-full flex justify-start flex-col sm:flex-row sm:gap-x-4 py-10">
+              <button
+                onClick={handleGoToNextStep}
+                className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto"
               >
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-            <Link
-              to="/faqs"
-              className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600"
-            >
-              {t("learn_more")}
-            </Link>
-          </div>
+                {t("next")}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 ml-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <Link
+                to="/faqs"
+                className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600"
+              >
+                {t("learn_more")}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

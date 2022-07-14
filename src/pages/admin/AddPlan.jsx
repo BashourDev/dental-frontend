@@ -7,11 +7,12 @@ import { MdAdd, MdCheck, MdEdit } from "react-icons/md";
 import AddPlanFeatureModal from "../../components/modals/AddPlanFeatureModal";
 import AppFormRadioButton from "../../components/forms/AppFormRadioButton";
 import AppSubmitButton from "../../components/forms/AppSubmitButton";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import EditPlanFeatureModal from "../../components/modals/EditPlanFeatureModal";
 import swal from "sweetalert";
+import api from "../../api/api";
 
-const AddEditPlan = () => {
+const AddPlan = () => {
   const [features, setFeatures] = useState([]);
   const [selectedFeature, setSelectedFeature] = useState({ id: 0 });
   const [isFeatureOpen, setIsFeatureOpen] = useState(false);
@@ -21,7 +22,7 @@ const AddEditPlan = () => {
     { id: 2, name: "Company" },
   ]);
 
-  const params = useParams();
+  const navigate = useNavigate();
 
   const handleEditFeature = (feature) => {
     setSelectedFeature(feature);
@@ -37,6 +38,9 @@ const AddEditPlan = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        setFeatures((old) =>
+          old.filter((o) => o?.en_name !== feature?.en_name)
+        );
         swal("Poof! The feature has been deleted!", {
           icon: "success",
         });
@@ -46,18 +50,45 @@ const AddEditPlan = () => {
     });
   };
 
-  useEffect(() => {
-    // if there is an id param then fetch the plan info with it's features
-  }, []);
+  const handleSubmit = async (values) => {
+    console.log(values);
+    // return;
+    const res = await api.post("/plans/create", {
+      ...values,
+      features: features,
+    });
+
+    swal("The plan has been created!", {
+      icon: "success",
+    });
+    navigate("/admin/plans");
+  };
 
   return (
-    <div className="max-w-xl w-full py-5 px-2 space-y-5">
+    <div className="max-w-xl w-full py-5 px-2 md:px-5 space-y-5 bg-white rounded-md my-5 shadow-md">
       <AppForm
-        initialValues={{ name: "", price: 0, type: types[0].name }}
+        initialValues={{
+          en_name: "",
+          ar_name: "",
+          quarter_price: 0,
+          semi_annual_price: 0,
+          annual_price: 0,
+          type: types[0].id,
+        }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required().label("Name"),
-          price: Yup.number().required().min(0).label("Price"),
+          en_name: Yup.string().required().label("English Name"),
+          ar_name: Yup.string().required().label("Arabic Name"),
+          quarter_price: Yup.number()
+            .required()
+            .min(0)
+            .label("Quarterly Price"),
+          semi_annual_price: Yup.number()
+            .required()
+            .min(0)
+            .label("Semi Annual Price"),
+          annual_price: Yup.number().required().min(0).label("Annual Price"),
         })}
+        onSubmit={handleSubmit}
       >
         <div>
           <label
@@ -72,31 +103,56 @@ const AddEditPlan = () => {
                 key={type.id}
                 id={type.id}
                 name={"type"}
-                value={type.name}
+                value={type.id}
                 text={type.name}
               />
             ))}
           </div>
         </div>
         <AppFormInput
-          id={"name"}
-          label={"Plan Name "}
-          placeholder={"Enter The Plan Name Here"}
+          id={"en_name"}
+          label={"Plan Name in English "}
+          placeholder={"Enter The Plan Name in English Here"}
           isRequired={true}
         />
         <AppFormInput
-          id={"price"}
-          label={"Plan Price "}
+          id={"ar_name"}
+          label={"Plan Name in Arabic "}
+          placeholder={"Enter The Plan Name in Arabic Here"}
+          isRequired={true}
+        />
+        <AppFormInput
+          id={"quarter_price"}
+          label={"Quarterly Price "}
           placeholder={"20"}
           isRequired={true}
           type={"number"}
         />
 
+        <AppFormInput
+          id={"semi_annual_price"}
+          label={"Semi Annual Price "}
+          placeholder={"50"}
+          isRequired={true}
+          type={"number"}
+        />
+
+        <AppFormInput
+          id={"annual_price"}
+          label={"Annual Price "}
+          placeholder={"70"}
+          isRequired={true}
+          type={"number"}
+        />
+
         <div className="flex flex-col gap-y-3">
-          {features.map((f) => (
-            <div className="flex items-center">
+          {features.map((f, i) => (
+            <div key={i} className="flex items-center">
               <MdCheck className="text-success" />
-              <span className="text-dark">{f?.title}</span>
+              <div className="flex gap-2">
+                <span className="text-dark">{f?.en_name}</span>
+                <span className="text-dark">{f?.ar_name}</span>
+              </div>
               <div className="flex gap-x-2 px-4">
                 <button
                   className="btn btn-warning btn-xs"
@@ -141,4 +197,4 @@ const AddEditPlan = () => {
   );
 };
 
-export default AddEditPlan;
+export default AddPlan;

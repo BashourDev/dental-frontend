@@ -4,89 +4,13 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import UserDetailsModal from "./modals/UserDetailsModal";
 
-const PlansTable = ({ onDelete, selectedPlans, setSelectedPlans }) => {
-  const [plans, setPlans] = useState([
-    {
-      name: "Padawan",
-      price: 20,
-      users_count: 44,
-      is_active: true,
-      properties: [
-        {
-          id: 1,
-          name: "something good 1",
-        },
-        {
-          id: 2,
-          name: "something good 2",
-        },
-        {
-          id: 3,
-          name: "something good 3",
-        },
-      ],
-    },
-    {
-      name: "Jedi Knight",
-      price: 50,
-      users_count: 48,
-      is_active: false,
-      properties: [
-        {
-          id: 1,
-          name: "something good 1",
-        },
-        {
-          id: 2,
-          name: "something good 2",
-        },
-        {
-          id: 3,
-          name: "something good 3",
-        },
-        {
-          id: 4,
-          name: "something good 4",
-        },
-      ],
-    },
-    {
-      name: "Jedi Master",
-      price: 80,
-      users_count: 67,
-      is_active: true,
-      properties: [
-        {
-          id: 1,
-          name: "something good 1",
-        },
-        {
-          id: 2,
-          name: "something good 2",
-        },
-        {
-          id: 3,
-          name: "something good 3",
-        },
-        {
-          id: 4,
-          name: "something good 4",
-        },
-        {
-          id: 5,
-          name: "something good 5",
-        },
-        {
-          id: 6,
-          name: "something good 6",
-        },
-        {
-          id: 7,
-          name: "something good 7",
-        },
-      ],
-    },
-  ]);
+const PlansTable = ({
+  onDelete,
+  selectedPlans,
+  setSelectedPlans,
+  plans,
+  setPlans,
+}) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
@@ -115,8 +39,9 @@ const PlansTable = ({ onDelete, selectedPlans, setSelectedPlans }) => {
               </label>
             </th>
             <th>Name</th>
-            <th>Price</th>
-            <th>Active</th>
+            <th>Quarterly Price</th>
+            <th>Semi Annual Price</th>
+            <th>Annual Price</th>
             <th>NO. Users</th>
             <th></th>
             <th></th>
@@ -138,7 +63,7 @@ const PlansTable = ({ onDelete, selectedPlans, setSelectedPlans }) => {
               <td>
                 <div className="flex items-center space-x-3">
                   <div>
-                    <div className="font-bold">{plan?.name}</div>
+                    <div className="font-bold">{plan?.en_name}</div>
                     <div className="text-sm opacity-50">
                       {/* some thing about it */}
                     </div>
@@ -146,19 +71,27 @@ const PlansTable = ({ onDelete, selectedPlans, setSelectedPlans }) => {
                 </div>
               </td>
               <td>
-                {plan?.price}
+                {plan?.quarter_price}
                 <br />
                 {/* <span className="badge badge-ghost badge-sm">
                   the current price is {plan?.price}
                 </span> */}
               </td>
               <td>
-                {plan?.is_active ? (
-                  <MdCheckCircle className="text-success text-2xl" />
-                ) : (
-                  <MdCancel className="text-error text-2xl" />
-                )}
+                {plan?.semi_annual_price}
+                <br />
+                {/* <span className="badge badge-ghost badge-sm">
+                  the current price is {plan?.price}
+                </span> */}
               </td>
+              <td>
+                {plan?.annual_price}
+                <br />
+                {/* <span className="badge badge-ghost badge-sm">
+                  the current price is {plan?.price}
+                </span> */}
+              </td>
+
               <td>{plan?.users_count}</td>
               <th>
                 <Link
@@ -184,8 +117,9 @@ const PlansTable = ({ onDelete, selectedPlans, setSelectedPlans }) => {
           <tr>
             <th></th>
             <th>Name</th>
-            <th>Price</th>
-            <th>Active</th>
+            <th>Quarterly Price</th>
+            <th>Semi Annual Price</th>
+            <th>Annual Price</th>
             <th>No. Users</th>
             <th></th>
             <th></th>
