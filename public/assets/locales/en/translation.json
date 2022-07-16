@@ -63,6 +63,8 @@
   "bio_placeholder": "Enter Your biography Here",
   "save_changes": "Save Changes",
 
+  "change_location": "Change Location",
+
   "change_password": "Change Password",
   "current_password": "Current Password ",
   "new_password": "New Password ",
@@ -111,5 +113,8 @@
   "proccessing_request": "Your request has been submitted, We will process it shortly",
   "please_select_your_coordinates": "please select your coordinates",
   "please_select_a_plan": "please select a plan and a period",
-  "please_select_a_profile_image": "please select a profile image"
+  "please_select_a_profile_image": "please select a profile image",
+
+  "updated_successfully": "Updated Successfully",
+  "current_password_mismatch": "The current password is not correct"
 }

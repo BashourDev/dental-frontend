@@ -9,6 +9,8 @@ import { ReactComponent as Doctors } from "../assets/doctors.svg";
 import { setUser } from "../api/user";
 import UserContext from "../contexts/userContext";
 import { useTranslation } from "react-i18next";
+import api from "../api/api";
+import { setToken } from "../api/token";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -21,11 +23,16 @@ const Login = () => {
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().label("Email"),
-    password: Yup.string().required("Password is a required field"),
+    password: Yup.string().required(t("required_field")),
   });
-  const handleLogin = (values) => {
-    setUser({ id: 1, ...values });
-    userContext.setUser({ id: 1, ...values });
+  const handleLogin = async (values) => {
+    const res = await api.post("/login", {
+      email: values.email,
+      password: values.password,
+    });
+    setUser(res.data.user);
+    setToken(res.data.token);
+    userContext.setUser(res.data.user);
     navigate("/user-dashboard/profile");
   };
 

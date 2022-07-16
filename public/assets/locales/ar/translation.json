@@ -61,6 +61,8 @@
   "bio_placeholder": "اكتب شيئاً عن نفسك",
   "save_changes": "حفظ التغييرات",
 
+  "change_location": "تغيير الموقع",
+
   "change_password": "تغيير كلمة المرور",
   "current_password": "كلمة المرور الحالية",
   "new_password": "كلمة المرور الجديدة",
@@ -109,5 +111,9 @@
   "proccessing_request": "تم إنشاء طلبك, سيتم معالجته بأقرب وقت ممكن",
   "please_select_your_coordinates": "الرجاء تحديد موقعك",
   "please_select_a_plan": "الرجاء تحديد خطة الإستراك و مدته",
-  "please_select_a_profile_image": "الرجاء تحديد الصورة الشخصية"
+  "please_select_a_profile_image": "الرجاء تحديد الصورة الشخصية",
+
+  "updated_successfully": "تم التعديل بنجاح",
+
+  "current_password_mismatch": "خطأ في كلمة المرور الحالية"
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import L from "leaflet";
@@ -40,6 +40,13 @@ const MapComponent = (props) => {
   map.on("geosearch/showlocation", (e) => {
     props.setCords({ latitude: e.location.y, longitude: e.location.x });
   });
+
+  useEffect(() => {
+    if (props.cords.latitude) {
+      props.setMarkerPos([props.cords.latitude, props.cords.longitude]);
+    }
+  }, [props.cords]);
+
   return null;
 };
 

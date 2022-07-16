@@ -4,14 +4,25 @@ import AppFormInput from "../components/forms/AppFormInput";
 import AppFormTextArea from "../components/forms/AppFormTextArea";
 import AppSubmitButton from "../components/forms/AppSubmitButton";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import ChangePassword from "../components/ChangePassword";
 import { useTranslation } from "react-i18next";
+import api from "../api/api";
+import ChangeLocation from "../components/ChangeLocation";
+import { setUser } from "../api/user";
+import { useContext } from "react";
+import UserContext from "../contexts/userContext";
 
 const UserProfileForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [doctor, setDoctor] = useState({});
   const [selectedImage, setSelectedImage] = useState("");
-  const { doctor, setDoctor } = useOutletContext();
+  const [cords, setCords] = useState({});
+  const {
+    user: { id },
+    setUser: setUserContext,
+  } = useContext(UserContext);
   const { t } = useTranslation();
 
   const validationSchema = Yup.object().shape({
@@ -23,15 +34,75 @@ const UserProfileForm = () => {
     // city: Yup.string().required("City is a required field"),
     // address: Yup.string().required("Address is a required field"),
   });
+
+  const getDoctor = async () => {
+    const res = await api.get(`/users/${id}`);
+    console.log("====================================");
+    console.log(res);
+    console.log("====================================");
+    setDoctor(res.data);
+    setCords({ latitude: res.data.latitude, longitude: res.data.longitude });
+  };
+
+  const handleSubmit = async (values) => {
+    try {
+      setIsLoading(true);
+      let formData = new FormData();
+      formData.append("profile_pic", selectedImage);
+      formData.append("email", values?.email);
+      formData.append("phone", values?.phone);
+      formData.append("type", values?.type);
+      formData.append("password", values?.password);
+
+      formData.append("en_name", values?.en_name);
+      formData.append("en_country", values?.en_country);
+      formData.append("en_city", values?.en_city);
+      formData.append("en_address", values?.en_address);
+      formData.append("en_bio", values?.en_bio);
+
+      formData.append("ar_name", values?.ar_name);
+      formData.append("ar_country", values?.ar_country);
+      formData.append("ar_city", values?.ar_city);
+      formData.append("ar_address", values?.ar_address);
+      formData.append("ar_bio", values?.ar_bio);
+
+      formData.append("update_profile_pic", selectedImage ? true : false);
+
+      await api.post(`/users/${id}/update`, formData);
+      setUser({ ...doctor, ...values });
+      setUserContext({
+        ...doctor,
+        ...values,
+        first_media_only: {
+          original_url: selectedImage
+            ? URL.createObjectURL(selectedImage)
+            : doctor?.first_media_only?.original_url,
+        },
+      });
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getDoctor();
+  }, []);
+
   return (
     <div className="w-full space-y-10">
       <div className="bg-white rounded-md max-w-5xl space-y-8 py-5 px-8 shadow-md w-full">
         <h2 className="text-dark-blue text-xl font-semibold">
           {t("your_info")}
         </h2>
-        <AppForm initialValues={doctor} validationSchema={validationSchema}>
+        <AppForm
+          initialValues={doctor}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
           <AppProfilePictureInput
             selectedFile={selectedImage}
+            existingImage={doctor?.first_media_only?.original_url}
             onChange={(e) => setSelectedImage(e.target.files[0])}
             label={t("choose_image")}
           />
@@ -139,10 +210,13 @@ const UserProfileForm = () => {
             />
           </div>
 
-          <AppSubmitButton>{t("save_changes")}</AppSubmitButton>
+          <AppSubmitButton isLoading={isLoading}>
+            {t("save_changes")}
+          </AppSubmitButton>
         </AppForm>
       </div>
-      <ChangePassword />
+      <ChangeLocation id={id} cords={cords} setCords={setCords} />
+      <ChangePassword id={id} />
     </div>
   );
 };

@@ -86,7 +86,7 @@ const DoctorDashboard = () => {
         </ul>
         <div className="bg-white rounded-md w-72 overflow-hidden shadow-md pb-5 space-y-3">
           <img
-            src="https://www.openaccessgovernment.org/wp-content/uploads/2020/12/dreamstime_l_55863002.jpg"
+            src={doctor?.first_media_only?.original_url}
             alt="profile pic"
             className="w-72 h-full"
           />

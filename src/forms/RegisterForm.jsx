@@ -320,7 +320,7 @@ const RegisterForm = () => {
           selectedPeriod={selectedPlanPeriod}
           setSelectedPeriod={setSelectedPlanPeriod}
         />
-        <LocationWizardStep setCords={setCords} hideNext />
+        <LocationWizardStep cords={cords} setCords={setCords} hideNext />
         <AppSubmitButton isLoading={isLoading}>
           {t("send_request")}
         </AppSubmitButton>
