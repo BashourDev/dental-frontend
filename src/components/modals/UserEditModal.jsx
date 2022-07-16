@@ -9,6 +9,7 @@ import AppSubmitButton from "../forms/AppSubmitButton";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import api from "../../api/api";
+import AppFormSwitch from "../forms/AppFormSwitch";
 
 const UserEditModal = ({ isOpen, onClose, info, setUsers }) => {
   const [selectedImage, setSelectedImage] = useState("");
@@ -34,14 +35,14 @@ const UserEditModal = ({ isOpen, onClose, info, setUsers }) => {
     formData.append("ar_address", values?.ar_address);
     formData.append("ar_bio", values?.ar_bio);
 
+    formData.append("featured", values?.featured);
+
     formData.append("update_profile_pic", selectedImage ? 1 : 0);
 
     try {
       setIsLoading(true);
-      const res = await api.post(`/users/${info?.id}/update`, formData);
-      console.log("====================================");
-      console.log(res);
-      console.log("====================================");
+      await api.post(`/users/${info?.id}/update`, formData);
+
       setSelectedImage("");
       onClose();
       //   setUsers((old) =>
@@ -55,7 +56,6 @@ const UserEditModal = ({ isOpen, onClose, info, setUsers }) => {
       //     })
       //   );
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -178,6 +178,7 @@ const UserEditModal = ({ isOpen, onClose, info, setUsers }) => {
               isRequired={true}
             />
           </div>
+          <AppFormSwitch name={"featured"} text={"Featured"} />
 
           <AppSubmitButton isLoading={isLoading}>
             {t("save_changes")}

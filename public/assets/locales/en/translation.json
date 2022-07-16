@@ -115,6 +115,9 @@
   "please_select_a_plan": "please select a plan and a period",
   "please_select_a_profile_image": "please select a profile image",
 
+  "please_select_the_after_image": "please select the after image",
+
+  "created_successfully": "Created Successfully",
   "updated_successfully": "Updated Successfully",
   "current_password_mismatch": "The current password is not correct"
 }

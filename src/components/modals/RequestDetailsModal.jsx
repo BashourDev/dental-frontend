@@ -1,11 +1,14 @@
 import swal from "sweetalert";
 import api from "../../api/api";
 import AppButton from "../controls/AppButton";
+import AppForm from "../forms/AppForm";
+import AppFormSwitch from "../forms/AppFormSwitch";
+import AppSubmitButton from "../forms/AppSubmitButton";
 import AppModal from "./AppModal";
 
 const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
-  const handleActivate = async () => {
-    await api.put(`/admin/users/${info?.id}/activate`);
+  const handleActivate = async (values) => {
+    await api.put(`/admin/users/${info?.id}/activate`, values);
     setRequests((old) => old.filter((o) => o.id !== info.id));
 
     swal("The request has been accepted!", {
@@ -101,26 +104,28 @@ const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
           </div>
         </div>
       </div>
-      <div className="flex space-x-3 w-full">
-        <AppButton
-          className="w-full bg-dark-blue hover:bg-dark-blue/95"
-          onClick={handleActivate}
-        >
-          Accept
-        </AppButton>
-        <AppButton
-          className="w-full bg-danger hover:bg-danger/95"
-          onClick={handleReject}
-        >
-          Reject
-        </AppButton>
-        <AppButton
-          className="w-full bg-medium-gray hover:bg-medium-gray/95"
-          onClick={() => onClose()}
-        >
-          Close
-        </AppButton>
-      </div>
+      <AppForm initialValues={{ featured: false }} onSubmit={handleActivate}>
+        <div className="py-5">
+          <AppFormSwitch name={"featured"} text={"Featured"} />
+        </div>
+        <div className="flex space-x-3 w-full">
+          <AppSubmitButton className="w-full bg-dark-blue hover:bg-dark-blue/95">
+            Accept
+          </AppSubmitButton>
+          <AppButton
+            className="w-full bg-danger hover:bg-danger/95"
+            onClick={handleReject}
+          >
+            Reject
+          </AppButton>
+          <AppButton
+            className="w-full bg-medium-gray hover:bg-medium-gray/95"
+            onClick={() => onClose()}
+          >
+            Close
+          </AppButton>
+        </div>
+      </AppForm>
     </AppModal>
   );
 };

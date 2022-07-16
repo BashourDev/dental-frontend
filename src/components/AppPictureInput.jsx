@@ -7,15 +7,18 @@ const AppPictureInput = ({
   onChange,
   containerClassName,
   selectedFile,
+  existingImage,
 }) => {
   return (
     <div
       className={`flex w-full h-32 items-center justify-center  bg-grey-lighter space-x-5 ${containerClassName}`}
     >
       <label className="w-32 h-32 flex flex-col overflow-hidden items-center justify-center text-dark rounded-md shadow-sm tracking-wide uppercase border border-light cursor-pointer bg-light-gray/30">
-        {selectedFile ? (
+        {selectedFile || existingImage ? (
           <img
-            src={selectedFile && URL.createObjectURL(selectedFile)}
+            src={
+              selectedFile ? URL.createObjectURL(selectedFile) : existingImage
+            }
             alt={"profile picture"}
             className={"w-full h-full"}
           />

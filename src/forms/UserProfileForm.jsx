@@ -13,6 +13,7 @@ import ChangeLocation from "../components/ChangeLocation";
 import { setUser } from "../api/user";
 import { useContext } from "react";
 import UserContext from "../contexts/userContext";
+import swal from "sweetalert";
 
 const UserProfileForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -78,6 +79,9 @@ const UserProfileForm = () => {
             ? URL.createObjectURL(selectedImage)
             : doctor?.first_media_only?.original_url,
         },
+      });
+      swal(t("updated_successfully"), {
+        icon: "success",
       });
     } catch (error) {
     } finally {

@@ -31,7 +31,7 @@ const RegisterForm = () => {
   const getPlan = async () => {
     const res = await api.get("/plans");
     setPlans(res.data);
-    setSelectedPlan(res.data[0]);
+    setSelectedPlan(res.data[0] || {});
   };
 
   useEffect(() => {
@@ -151,7 +151,6 @@ const RegisterForm = () => {
       navigate("/#");
       setSelectedImage("");
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }

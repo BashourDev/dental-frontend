@@ -128,7 +128,7 @@ const LocationWizardStep = (props) => {
                 dragging={true}
                 animate={true}
                 easeLinearity={0.35}
-                className="w-full sm:w-[45rem] h-[26rem] relative"
+                className="w-full max-w-5xl h-[26rem] relative"
               >
                 <MapComponent
                   setMarkerPos={setMarkerPos}
@@ -150,7 +150,9 @@ const LocationWizardStep = (props) => {
             <div className="relative w-full flex justify-start flex-col sm:flex-row sm:gap-x-4 py-10">
               <button
                 onClick={handleGoToNextStep}
-                className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto"
+                className={`flex ${
+                  t("ln") === "en" ? "flex-row" : "flex-row-reverse"
+                } items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto`}
               >
                 {t("next")}
                 <svg

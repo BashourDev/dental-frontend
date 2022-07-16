@@ -7,11 +7,42 @@ import AppSubmitButton from "../forms/AppSubmitButton";
 import AppModal from "./AppModal";
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
+import api from "../../api/api";
+import { useContext } from "react";
+import UserContext from "../../contexts/userContext";
+import swal from "sweetalert";
 
-const ProjectAddModal = ({ isOpen, onClose }) => {
+const ProjectAddModal = ({ isOpen, onClose, setGallery }) => {
+  const { user } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedBefore, setSelectedBefore] = useState("");
   const [selectedAfter, setSelectedAfter] = useState("");
   const { t } = useTranslation();
+
+  const handleSubmit = async (values) => {
+    if (!selectedAfter) {
+      swal({
+        icon: "warning",
+        text: t("please_select_the_after_image"),
+      });
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append("before", selectedBefore);
+    formData.append("after", selectedAfter);
+    formData.append("en_description", values.en_description);
+    formData.append("ar_description", values.ar_description);
+    formData.append("before_exists", selectedBefore ? 1 : 0);
+
+    const res = await api.post(`/users/${user.id}/projects/create`, formData);
+    setGallery((old) => [res.data, ...old]);
+    onClose();
+    swal(t("created_successfully"), {
+      icon: "success",
+    });
+  };
+
   return (
     <AppModal isOpen={isOpen} onClose={onClose} title={t("create_new_project")}>
       <div className="space-y-3">
@@ -34,9 +65,10 @@ const ProjectAddModal = ({ isOpen, onClose }) => {
         <AppForm
           initialValues={{ en_description: "", ar_description: "" }}
           validationSchema={Yup.object().shape({
-            // en_description: Yup.string().required().label("Description"),
-            // ar_description: Yup.string().required().label("Description"),
+            en_description: Yup.string().required(t("required_field")),
+            ar_description: Yup.string().required(t("required_field")),
           })}
+          onSubmit={handleSubmit}
         >
           <AppFormTextArea
             id={"en_description"}
@@ -48,7 +80,7 @@ const ProjectAddModal = ({ isOpen, onClose }) => {
             label={t("arabic_description")}
             placeholder={t("arabic_description")}
           />
-          <AppSubmitButton>{t("create")}</AppSubmitButton>
+          <AppSubmitButton isLoading={isLoading}>{t("create")}</AppSubmitButton>
         </AppForm>
       </div>
     </AppModal>

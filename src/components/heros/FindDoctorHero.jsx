@@ -27,7 +27,9 @@ const FindDoctorHero = ({
               <div className="relative flex flex-col sm:flex-row sm:gap-x-4">
                 <Link
                   to="/find-doctor"
-                  className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto"
+                  className={`flex ${
+                    t("ln") === "en" ? "flex-row" : "flex-row-reverse"
+                  } items-center w-full px-6 py-3 mb-3 text-lg text-white bg-light-green rounded-md sm:mb-0 hover:bg-light-green/90 sm:w-auto`}
                 >
                   {t("try_it_now")}
                   <svg

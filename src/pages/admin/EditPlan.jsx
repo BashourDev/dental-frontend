@@ -62,8 +62,6 @@ const EditPlan = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    // return;
     await api.put(`/plans/${id}/update`, {
       ...values,
       features: features,
@@ -77,7 +75,6 @@ const EditPlan = () => {
 
   const getPlan = async () => {
     const res = await api.get(`/plans/${id}`);
-    console.log(res);
     setPlan({
       en_name: res.data.en_name,
       ar_name: res.data.ar_name,
@@ -90,7 +87,6 @@ const EditPlan = () => {
   };
 
   useEffect(() => {
-    // if there is an id param then fetch the plan info with it's features
     getPlan();
   }, []);
 

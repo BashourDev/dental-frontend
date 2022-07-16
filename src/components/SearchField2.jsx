@@ -9,8 +9,7 @@ const SearchField2 = () => {
   const provider = new OpenStreetMapProvider();
 
   const getResult = async () => {
-    const results = await provider.search({ query: query });
-    console.log(results);
+    await provider.search({ query: query });
   };
 
   useEffect(() => {

@@ -33,7 +33,7 @@ const Login = () => {
     setUser(res.data.user);
     setToken(res.data.token);
     userContext.setUser(res.data.user);
-    navigate("/user-dashboard/profile");
+    navigate(res.data.user.type ? "/user-dashboard/profile" : "/admin/users");
   };
 
   return (

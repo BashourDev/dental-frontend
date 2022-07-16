@@ -39,12 +39,9 @@ function App() {
 
   const blah = async () => {
     navigator.geolocation.getCurrentPosition(async function (position) {
-      const res = await axios.get(
+      await axios.get(
         `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
       );
-      console.log("====================================");
-      console.log(res);
-      console.log("====================================");
     });
   };
 

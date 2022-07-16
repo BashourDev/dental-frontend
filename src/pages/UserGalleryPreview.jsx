@@ -20,13 +20,8 @@ const UserGalleryPreview = () => {
   const { user } = useContext(UserContext);
 
   const getProjects = async () => {
-    if (user?.type === 1) {
-      const res = await api.get(`/doctors/${user?.id}/projects`);
-      setGallery(res.data);
-    } else {
-      const res = await api.get(`/companies/${user?.id}/projects`);
-      setGallery(res.data);
-    }
+    const res = await api.get(`/users/${user?.id}/projects`);
+    setGallery(res.data);
   };
 
   useEffect(() => {
@@ -38,6 +33,7 @@ const UserGalleryPreview = () => {
   };
 
   const handleEdit = (proID) => {
+    console.log(proID);
     setSelectedProject(proID);
     setIsUpdateOpen(true);
   };
@@ -49,8 +45,10 @@ const UserGalleryPreview = () => {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((willDelete) => {
+    }).then(async (willDelete) => {
       if (willDelete) {
+        await api.delete(`/projects/${proID}/delete`);
+        setGallery((old) => old.filter((o) => o.id !== proID));
         swal(t("project_deleted_message"), {
           icon: "success",
         });
@@ -61,7 +59,7 @@ const UserGalleryPreview = () => {
   };
 
   return (
-    <div className="space-y-5 flex flex-col items-center w-full max-w-5xl">
+    <div className="space-y-5 flex flex-col items-center w-full max-w-5xl ">
       <AppButton
         Icon={MdAdd}
         onClick={handleAdd}
@@ -69,10 +67,11 @@ const UserGalleryPreview = () => {
       >
         {t("create_new_project")}
       </AppButton>
-      <div className="flex flex-wrap gap-4 justify-center w-full max-w-5xl">
+      <div className="flex flex-wrap gap-4 place-content-center w-full max-w-5xl">
         {gallery.map((g, i) => (
           <UserGalleryPreviewItem
             key={i}
+            id={g?.id}
             before={g?.before}
             after={g?.after}
             description={
@@ -83,11 +82,16 @@ const UserGalleryPreview = () => {
           />
         ))}
       </div>
-      <ProjectAddModal isOpen={isAddOpen} onClose={() => setisAddOpen(false)} />
+      <ProjectAddModal
+        isOpen={isAddOpen}
+        onClose={() => setisAddOpen(false)}
+        setGallery={setGallery}
+      />
       <ProjectEditModal
         isOpen={isUpdateOpen}
         onClose={() => setIsUpdateOpen(false)}
         id={selectedProject}
+        setGallery={setGallery}
       />
     </div>
   );

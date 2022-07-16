@@ -6,18 +6,55 @@ import * as Yup from "yup";
 import AppSubmitButton from "../forms/AppSubmitButton";
 import AppModal from "./AppModal";
 import { useTranslation } from "react-i18next";
+import api from "../../api/api";
+import swal from "sweetalert";
+import { useEffect } from "react";
 
-const ProjectEditModal = ({
-  id,
-  isOpen,
-  onClose,
-  description,
-  selectedBefore,
-  setSelectedBefore,
-  selectedAfter,
-  setSelectedAfter,
-}) => {
+const ProjectEditModal = ({ id, isOpen, onClose, setGallery }) => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedBefore, setSelectedBefore] = useState("");
+  const [selectedAfter, setSelectedAfter] = useState("");
+  const [project, setProject] = useState({
+    en_description: "",
+    ar_description: "",
+  });
+
+  const getProject = async () => {
+    if (id !== 0) {
+      const res = await api.get(`/projects/${id}`);
+      setProject(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getProject();
+  }, [id]);
+
+  const handleSubmit = async (values) => {
+    let formData = new FormData();
+    formData.append("before", selectedBefore);
+    formData.append("after", selectedAfter);
+    formData.append("en_description", values.en_description);
+    formData.append("ar_description", values.ar_description);
+    formData.append("update_before", selectedBefore ? 1 : 0);
+    formData.append("update_after", selectedAfter ? 1 : 0);
+
+    const res = await api.post(`/projects/${id}/update`, formData);
+    setGallery((old) =>
+      old.map((o) => {
+        if (o.id === id) {
+          o = res.data;
+        }
+        return o;
+      })
+    );
+    onClose();
+    swal(t("updated_successfully"), {
+      icon: "success",
+    });
+  };
+
   return (
     <AppModal isOpen={isOpen} onClose={onClose} title={t("edit_project")}>
       <div className="space-y-3">
@@ -26,6 +63,7 @@ const ProjectEditModal = ({
             <h3>{t("before")}</h3>
             <AppPictureInput
               selectedFile={selectedBefore}
+              existingImage={project?.before?.original_url}
               onChange={(e) => setSelectedBefore(e.target.files[0])}
             />
           </div>
@@ -33,15 +71,18 @@ const ProjectEditModal = ({
             <h3>{t("after")}</h3>
             <AppPictureInput
               selectedFile={selectedAfter}
+              existingImage={project?.after?.original_url}
               onChange={(e) => setSelectedAfter(e.target.files[0])}
             />
           </div>
         </div>
         <AppForm
-          initialValues={{ description: description }}
+          initialValues={project}
           validationSchema={Yup.object().shape({
-            // description: Yup.string().required().label("Description"),
+            en_description: Yup.string().required(t("required_field")),
+            ar_description: Yup.string().required(t("required_field")),
           })}
+          onSubmit={handleSubmit}
         >
           <AppFormTextArea
             id={"en_description"}

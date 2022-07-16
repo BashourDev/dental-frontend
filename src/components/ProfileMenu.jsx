@@ -20,7 +20,9 @@ export default function ProfileMenu() {
       id: 1,
       name: t("dashboard"),
       onClick: () => {
-        navigate("/user-dashboard/profile");
+        navigate(
+          userContext.user.type ? "/user-dashboard/profile" : "/admin/users"
+        );
       },
       icon: MdDashboard,
     },

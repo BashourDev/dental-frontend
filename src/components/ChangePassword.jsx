@@ -37,8 +37,7 @@ const ChangePassword = ({ id }) => {
   const handleChange = async (values) => {
     try {
       setPasswordError(false);
-      const res = await api.put(`/users/${id}/change-password`, values);
-      console.log(res);
+      await api.put(`/users/${id}/change-password`, values);
       swal(t("updated_successfully"), {
         icon: "success",
       });

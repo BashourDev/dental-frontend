@@ -17,9 +17,7 @@ const CompaniesListing = ({ latitude, longitude, name }) => {
       const res = await api.get(
         `/users/search?latitude=${latitude}&longitude=${longitude}&name=${name}&type=2`
       );
-      console.log("====================================");
-      console.log(res);
-      console.log("====================================");
+
       setCompanies(res.data);
     } catch (error) {
     } finally {

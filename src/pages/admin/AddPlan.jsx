@@ -51,8 +51,6 @@ const AddPlan = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    // return;
     const res = await api.post("/plans/create", {
       ...values,
       features: features,

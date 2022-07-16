@@ -3,7 +3,7 @@
 
   "language": "اللغة",
 
-  "try_it_now": "جرب الآن",
+  "try_it_now": "اختبرها الآن",
   "learn_more": "المزيد",
   "doctors": "أطباء",
   "companies": "شركات",
@@ -113,6 +113,9 @@
   "please_select_a_plan": "الرجاء تحديد خطة الإستراك و مدته",
   "please_select_a_profile_image": "الرجاء تحديد الصورة الشخصية",
 
+  "please_select_the_after_image": "الرجاء تحديد صورة مابعد",
+
+  "created_successfully": "تم الإنشاء بنجاح",
   "updated_successfully": "تم التعديل بنجاح",
 
   "current_password_mismatch": "خطأ في كلمة المرور الحالية"

@@ -14,6 +14,14 @@ const UserDetailsModal = ({ isOpen, onClose, info, onPay, onDelete }) => {
           </span>
         </div>
         <div className="flex space-x-2">
+          <label className="text-dark-blue text-base font-medium">
+            Featured:
+          </label>
+          <span className={`${info?.featured ? "text-success" : "text-error"}`}>
+            {info?.featured ? "Yes" : "No"}
+          </span>
+        </div>
+        <div className="flex space-x-2">
           <label className="text-dark-blue text-base font-medium">Plan:</label>
           <span className="text-dark">
             {info?.plan?.en_name} ({info?.subscription_period} mo.)

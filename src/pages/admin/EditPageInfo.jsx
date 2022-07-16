@@ -61,7 +61,6 @@ const EditPageInfo = () => {
 
   const getInfo = async () => {
     const res = await api.get("/info");
-    console.log(res);
     setInfoEN(res.data);
     setInfoAR(res.data);
   };

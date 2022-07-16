@@ -10,7 +10,7 @@ const DoctorGallery = () => {
   const { id } = useParams();
 
   const getProjects = async () => {
-    const res = await api.get(`/doctors/${id}/projects`);
+    const res = await api.get(`/users/${id}/projects`);
     setGallery(res.data);
   };
 
