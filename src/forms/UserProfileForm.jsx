@@ -38,9 +38,6 @@ const UserProfileForm = () => {
 
   const getDoctor = async () => {
     const res = await api.get(`/users/${id}`);
-    console.log("====================================");
-    console.log(res);
-    console.log("====================================");
     setDoctor(res.data);
     setCords({ latitude: res.data.latitude, longitude: res.data.longitude });
   };
