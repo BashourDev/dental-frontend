@@ -9,7 +9,10 @@ import AppModal from "./AppModal";
 const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
   const handleActivate = async (values) => {
     await api.put(`/admin/users/${info?.id}/activate`, values);
-    setRequests((old) => old.filter((o) => o.id !== info.id));
+    setRequests((old) => ({
+      ...old,
+      new_users: old.new_users.filter((o) => o.id !== info.id),
+    }));
 
     swal("The request has been accepted!", {
       icon: "success",
@@ -19,7 +22,10 @@ const RequestDetailsModal = ({ isOpen, onClose, info, setRequests }) => {
 
   const handleReject = async () => {
     await api.post(`/admin/users/delete`, { ids: [info.id] });
-    setRequests((old) => old.filter((o) => o.id !== info.id));
+    setRequests((old) => ({
+      ...old,
+      new_users: old.new_users.filter((o) => o.id !== info.id),
+    }));
 
     swal("The request has been rejected!", {
       icon: "success",

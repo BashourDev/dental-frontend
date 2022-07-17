@@ -1,8 +1,13 @@
 import React from "react";
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
+import InfoContext from "../contexts/infoContext";
 
 const Footer = () => {
+  const { t } = useTranslation();
+  const { info } = useContext(InfoContext);
   return (
     <section className="text-gray-700 bg-white body-font w-full">
       <div className="container flex flex-col items-center justify-between px-8 py-8 mx-auto max-w-7xl sm:flex-row">
@@ -11,14 +16,18 @@ const Footer = () => {
             <span className="sr-only">Workflow</span>
             {/* <h1 className="text-3xl font-semibold text-dark-blue">Den</h1>
             <h1 className="text-3xl font-semibold text-dark-green">tist</h1> */}
+
             <img src={logo} alt="logo" className="h-14" />
           </Link>
           <p className="mt-4 text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l sm:border-gray-200 sm:mt-0">
-            © 2022 Dentist - World Leading Dentist Finder
+            {t("ln") === "en" ? info.en_footer_title : info.ar_footer_title}
           </p>
         </div>
         <span className="inline-flex justify-center mt-4 space-x-5 sm:mt-0 sm:justify-start">
-          <a href="#" className="text-gray-400 hover:text-gray-500">
+          <a
+            href="https://www.facebook.com/Tabibalasnan.sy/"
+            className="text-gray-400 hover:text-gray-500"
+          >
             <span className="sr-only">Facebook</span>
             <svg
               className="w-6 h-6"
@@ -35,7 +44,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          <a href="#" className="text-gray-400 hover:text-gray-500">
+          {/* <a href="#" className="text-gray-400 hover:text-gray-500">
             <span className="sr-only">Instagram</span>
             <svg
               className="w-6 h-6"
@@ -78,7 +87,7 @@ const Footer = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-          </a>
+          </a> */}
         </span>
       </div>
     </section>

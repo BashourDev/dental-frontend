@@ -119,5 +119,13 @@
 
   "created_successfully": "Created Successfully",
   "updated_successfully": "Updated Successfully",
-  "current_password_mismatch": "The current password is not correct"
+  "current_password_mismatch": "The current password is not correct",
+
+  "social": "Social",
+
+  "phone": "phone",
+  "email": "email",
+  "address": "address",
+
+  "bad_credentials": "Error with email or password"
 }

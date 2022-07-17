@@ -7,6 +7,8 @@ import { Formik } from "formik";
 import api from "../../api/api";
 import grayImage from "../../assets/gray.png";
 import { useEffect } from "react";
+import swal from "sweetalert";
+import AppFormInput from "../../components/forms/AppFormInput";
 
 const EditPageInfo = () => {
   const [infoEN, setInfoEN] = useState({
@@ -49,20 +51,41 @@ const EditPageInfo = () => {
     ar_special_companies_subtitle: "Check Out Our Selective Special Companies",
   });
 
+  const [infoContact, setInfoContact] = useState({
+    phone: "099999999",
+    email: "some@email.com",
+    en_address: "address in english",
+    ar_address: "address in arabic",
+  });
+
+  const handleSubmitContact = async () => {
+    await api.put("/admin/info/contact/update");
+    swal("Updated Successfully", {
+      icon: "success",
+    });
+  };
+
   const handleSubmitEN = async (values) => {
     await api.put("/admin/info/en/update", values);
     setInfoEN((old) => ({ ...old, ...values }));
+    swal("Updated Successfully", {
+      icon: "success",
+    });
   };
 
   const handleSubmitAR = async (values) => {
     await api.put("/admin/info/ar/update", values);
     setInfoAR((old) => ({ ...old, ...values }));
+    swal("Updated Successfully", {
+      icon: "success",
+    });
   };
 
   const getInfo = async () => {
     const res = await api.get("/info");
     setInfoEN(res.data);
     setInfoAR(res.data);
+    setInfoContact(res.data);
   };
 
   useEffect(() => {
@@ -71,6 +94,39 @@ const EditPageInfo = () => {
 
   return (
     <div className="space-y-10 py-10">
+      <div className="max-w-6xl w-full p-5 rounded bg-white space-y-5">
+        <h1 className="text-2xl text-dark-blue font-semibold">General Info</h1>
+        <AppForm initialValues={infoContact} onSubmit={handleSubmitContact}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"email"}
+              label={"Email"}
+              placeholder={"me@example.com"}
+            />
+            <AppFormInput
+              id={"phone"}
+              label={"Phone"}
+              placeholder={"+963 999 999 999"}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <AppFormInput
+              id={"en_address"}
+              label={"Address in English"}
+              placeholder={""}
+            />
+            <AppFormInput
+              id={"ar_address"}
+              label={"Address in Arabic"}
+              placeholder={""}
+            />
+          </div>
+          <AppSubmitButton>Save</AppSubmitButton>
+        </AppForm>
+      </div>
+
+      <div className="divider"></div>
+
       <Formik
         initialValues={infoEN}
         validationSchema={Yup.object().shape({})}

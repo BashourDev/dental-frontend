@@ -13,7 +13,7 @@ const FindCompanyWizard = () => {
   const [cords, setCords] = useState({});
   return (
     <>
-      <StepWizard>
+      <StepWizard className="max-w-5xl w-full">
         <LocationWizardStep
           stepName="location"
           country={country}

@@ -26,6 +26,7 @@ import EditPlan from "./pages/admin/EditPlan";
 import EditPageInfo from "./pages/admin/EditPageInfo";
 import InfoContext from "./contexts/infoContext";
 import api from "./api/api";
+import AdminChangePasswordModal from "./components/modals/AdminChangePasswordModal";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -36,6 +37,7 @@ function App() {
     return getUser();
   });
   const [info, setInfo] = useState({});
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
   const blah = async () => {
     navigator.geolocation.getCurrentPosition(async function (position) {
@@ -59,8 +61,8 @@ function App() {
     <div className="bg-light min-h-screen w-full">
       <InfoContext.Provider value={{ info, setInfo }}>
         <UserContext.Provider value={{ user: user, setUser: setUser }}>
-          <Header />
-          <div className="w-full flex justify-center py-5">
+          <Header setIsChangePasswordOpen={setIsChangePasswordOpen} />
+          <div className="w-full flex justify-center pt-5">
             <Routes>
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/login" element={<Login />} />
@@ -87,6 +89,10 @@ function App() {
               <Route path="/" element={<Home />} />
             </Routes>
           </div>
+          <AdminChangePasswordModal
+            isOpen={isChangePasswordOpen}
+            onClose={() => setIsChangePasswordOpen(false)}
+          />
         </UserContext.Provider>
       </InfoContext.Provider>
     </div>

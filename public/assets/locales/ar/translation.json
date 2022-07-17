@@ -118,5 +118,13 @@
   "created_successfully": "تم الإنشاء بنجاح",
   "updated_successfully": "تم التعديل بنجاح",
 
-  "current_password_mismatch": "خطأ في كلمة المرور الحالية"
+  "current_password_mismatch": "خطأ في كلمة المرور الحالية",
+
+  "social": "التواصل الاإجتماعي",
+
+  "phone": "هاتف",
+  "email": "بريد إلكتروني",
+  "address": "العنوان",
+
+  "bad_credentials": "خطأ في اسم المستخدم أو كلمة المرور"
 }

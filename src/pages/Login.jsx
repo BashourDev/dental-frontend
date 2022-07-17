@@ -15,6 +15,7 @@ import { setToken } from "../api/token";
 const Login = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+  const [badCredentials, setBadCredentials] = useState(false);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = {
@@ -26,14 +27,27 @@ const Login = () => {
     password: Yup.string().required(t("required_field")),
   });
   const handleLogin = async (values) => {
-    const res = await api.post("/login", {
-      email: values.email,
-      password: values.password,
-    });
-    setUser(res.data.user);
-    setToken(res.data.token);
-    userContext.setUser(res.data.user);
-    navigate(res.data.user.type ? "/user-dashboard/profile" : "/admin/users");
+    try {
+      setIsLoading(true);
+      setBadCredentials(false);
+      const res = await api.post("/login", {
+        email: values.email,
+        password: values.password,
+      });
+      setUser(res.data.user);
+      setToken(res.data.token);
+      userContext.setUser(res.data.user);
+      navigate(res.data.user.type ? "/user-dashboard/profile" : "/admin/users");
+    } catch (error) {
+      if (error.response.status === 401) {
+        console.log("====================================");
+        console.log(error);
+        console.log("====================================");
+        setBadCredentials(true);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -42,6 +56,9 @@ const Login = () => {
       <div className="w-full md:w-5/12 px-7 bg-white rounded-lg shadow-md pt-4 pb-8">
         <h2 className="text-dark-blue my-4 text-lg lg:text-xl">{t("login")}</h2>
         <div className="grid grid-cols-1 gap-y-5 lg:gap-y-6 w-full">
+          <h2 className="text-error">
+            {badCredentials && t("bad_credentials")}
+          </h2>
           <AppForm
             initialValues={initialValues}
             validationSchema={validationSchema}

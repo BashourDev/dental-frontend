@@ -22,7 +22,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
+export default function Header({ setIsChangePasswordOpen }) {
   const { user } = useContext(UserContext);
   const { t } = useTranslation();
 
@@ -182,7 +182,7 @@ export default function Header() {
           </Popover.Group>
           <div className="hidden md:flex items-center gap-x-4 justify-end md:flex-1 lg:w-0">
             {user?.id ? (
-              <ProfileMenu />
+              <ProfileMenu setIsChangePasswordOpen={setIsChangePasswordOpen} />
             ) : (
               <>
                 <Link
@@ -284,7 +284,9 @@ export default function Header() {
                 <ChooseLanguage isMobile={true} />
               </div>
               {user?.id ? (
-                <ProfileMenu />
+                <ProfileMenu
+                  setIsChangePasswordOpen={setIsChangePasswordOpen}
+                />
               ) : (
                 <div>
                   <Link
