@@ -27,13 +27,13 @@ export default function Header({ setIsChangePasswordOpen }) {
   const { t } = useTranslation();
 
   const resources = [
-    {
-      name: t("faqs"),
-      description: t("faqs_description"),
-      href: "/faqs",
-      icon: SupportIcon,
-      type: "link",
-    },
+    // {
+    //   name: t("faqs"),
+    //   description: t("faqs_description"),
+    //   href: "/faqs",
+    //   icon: SupportIcon,
+    //   type: "link",
+    // },
     // {
     //   name: "Offers",
     //   description:

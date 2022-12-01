@@ -127,5 +127,7 @@
   "email": "email",
   "address": "address",
 
-  "bad_credentials": "Error with email or password"
+  "bad_credentials": "Error with email or password",
+
+  "activation_message": "Your request is being processed please wait"
 }

@@ -2,14 +2,16 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const DoctorItem = ({ id, name, country, city, address }) => {
+const DoctorItem = ({ id, name, country, city, address, photo }) => {
   return (
     <Link
       to={`/doctors/${id}`}
       className="flex flex-col h-28 w-full bg-white p-2 shadow-sm"
     >
       <div className="flex">
-        <div className="min-h-[4rem] max-h-[4rem] min-w-[4rem] max-w-[4rem] rounded-full bg-light-gray/70"></div>
+        <div className="min-h-[4rem] max-h-[4rem] min-w-[4rem] max-w-[4rem] rounded-full bg-light-gray/70 overflow-hidden">
+          <img src={photo} alt={""} />
+        </div>
         <div className="w-full flex flex-col justify-between p-2">
           <h4 className="text-base text-dark font-medium">{name}</h4>
           <span className="flex text-sm text-dark/60">

@@ -169,12 +169,12 @@ const LocationWizardStep = (props) => {
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </button>
-              <Link
+              {/* <Link
                 to="/faqs"
                 className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600"
               >
                 {t("learn_more")}
-              </Link>
+              </Link> */}
             </div>
           )}
         </div>

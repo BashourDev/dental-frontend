@@ -50,6 +50,7 @@ const CompaniesListing = ({ latitude, longitude, name }) => {
                 address={
                   t("ln") === "en" ? company?.en_address : company?.ar_address
                 }
+                photo={company?.first_media_only?.original_url}
               />
             ))}
           </div>

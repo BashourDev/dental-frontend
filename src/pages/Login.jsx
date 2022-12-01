@@ -16,6 +16,7 @@ const Login = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [badCredentials, setBadCredentials] = useState(false);
+  const [activationMessage, setActivationMessage] = useState("");
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
   const initialValues = {
@@ -28,12 +29,17 @@ const Login = () => {
   });
   const handleLogin = async (values) => {
     try {
+      setActivationMessage("");
       setIsLoading(true);
       setBadCredentials(false);
       const res = await api.post("/login", {
         email: values.email,
         password: values.password,
       });
+      if (!res.data.user.is_activated) {
+        setActivationMessage(t("activation_message"));
+        return;
+      }
       setUser(res.data.user);
       setToken(res.data.token);
       userContext.setUser(res.data.user);
@@ -59,6 +65,7 @@ const Login = () => {
           <h2 className="text-error">
             {badCredentials && t("bad_credentials")}
           </h2>
+          <h2 className="text-info">{activationMessage}</h2>
           <AppForm
             initialValues={initialValues}
             validationSchema={validationSchema}

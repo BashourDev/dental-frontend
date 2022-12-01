@@ -49,6 +49,7 @@ const DoctorsListing = ({ latitude, longitude, name }) => {
                 address={
                   t("ln") === "en" ? doctor?.en_address : doctor?.ar_address
                 }
+                photo={doctor?.first_media_only?.original_url}
               />
             ))}
           </div>
